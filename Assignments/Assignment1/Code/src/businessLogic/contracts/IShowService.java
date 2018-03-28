@@ -13,4 +13,6 @@ public interface IShowService {
     boolean update(ShowModel showModel);
     boolean delete(ShowModel showModel);
     boolean deleteById(int showid);
+    public void ticketSold(int idshow);
+    public void ticketCanceled(int idshow);
 }

@@ -3,6 +3,7 @@ package businessLogic.services;
 import businessLogic.contracts.IUserMapper;
 import businessLogic.contracts.IUserService;
 import businessLogic.model.UserModel;
+import businessLogic.utility.PasswordEncryptor;
 import dataAccess.contracts.IUserRepository;
 import dataAccess.model.UserDto;
 import dataAccess.repositories.UserRepository;
@@ -38,6 +39,9 @@ public class UserService implements IUserService {
 
     @Override
     public boolean create(UserModel userModel) {
+
+        userModel.setPassword(PasswordEncryptor.encrypt(userModel.getPassword()));
+
         UserDto uDto = userMapper.map(userModel);
 
         return userRepository.create(uDto);
@@ -79,9 +83,11 @@ public class UserService implements IUserService {
     @Override
     public int login(String userName, String pass) {
 
+        String passE = PasswordEncryptor.encrypt(pass); //pass encrypted
+
         for (UserModel userModel: this.getAll()) {
             System.out.println(userModel);
-            if(userModel.getUsername().equals(userName) && userModel.getPassword().equals(pass)) {
+            if(userModel.getUsername().equals(userName) && userModel.getPassword().equals(passE)) {
                 if (userModel.getPermission().equals("Admin")) {
                     return 1;
                 } else if (userModel.getPermission().equals("Cashier")) {

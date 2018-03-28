@@ -36,24 +36,68 @@ public class TicketService implements ITicketService{
         return ticketModelList;
     }
 
+    private int checkSeatTaken(TicketModel ticket){ //codes: 0 - available, 1 - not in bounds, 2 - taken
+
+        if(ticket.getRowNb() > 100 || ticket.getSeatNb() > 100 || ticket.getRowNb() <= 0 || ticket.getSeatNb() <= 0){
+            return 1;
+        }
+
+        for(TicketModel ticketModel: getAllByShowid(ticket.getIdshow())) {
+            if(ticketModel.getSeatNb() == ticket.getSeatNb() && ticketModel.getRowNb() == ticket.getRowNb()) {
+                return 2;
+            }
+        }
+
+        return 0;
+    }
+
     @Override
-    public boolean create(TicketModel ticketModel) {
+    public int create(TicketModel ticketModel) { //codes: 0 - success, 1 - over 100, 2 - taken, 3 - error inserting in db
+
         TicketDto uDto = ticketMapper.map(ticketModel);
 
-        return ticketRepository.create(uDto);
+        //check if seat is already taken or not
+        int code = checkSeatTaken(ticketModel);
+
+        if (code == 0) {
+            if (ticketRepository.create(uDto) == true) {
+                //also modify number of sold tickets
+                new ShowService().ticketSold(ticketModel.getIdshow());
+                return 0;
+            } else { //error inserting in db
+                return 3;
+            }
+        } else {
+            return code;
+        }
 
     }
 
     @Override
-    public boolean update(TicketModel ticketModel) {
+    public int update(TicketModel ticketModel) {//codes: 0 - success, 1 - over 100, 2 - taken, 3 - error inserting in db
+
         TicketDto uDto = ticketMapper.map(ticketModel);
 
-        return ticketRepository.update(uDto);
+        //check if seat is already taken or not
+        int code = checkSeatTaken(ticketModel);
+
+        if (code == 0) {
+            if (ticketRepository.update(uDto) == true) {
+                //also modify number of sold tickets
+                return 0;
+            } else { //error inserting in db
+                return 3;
+            }
+        } else {
+            return code;
+        }
     }
 
     @Override
     public boolean delete(TicketModel ticketModel) {
         TicketDto uDto = ticketMapper.map(ticketModel);
+
+        new ShowService().ticketCanceled(ticketModel.getIdshow());
 
         return ticketRepository.delete(uDto);
     }

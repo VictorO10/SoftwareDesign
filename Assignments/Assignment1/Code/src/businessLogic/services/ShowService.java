@@ -63,4 +63,26 @@ public class ShowService implements IShowService{
 
         return this.delete(this.getById(showid));
     }
+
+    @Override
+    public void ticketSold(int idshow) {
+        ShowModel showModel = this.getById(idshow);
+
+        int soldTickets = showModel.getSoldTickets();
+        soldTickets++;
+        showModel.setSoldTickets(soldTickets);
+
+        this.update(showModel);
+    }
+
+    @Override
+    public void ticketCanceled(int idshow) {
+        ShowModel showModel = this.getById(idshow);
+
+        int soldTickets = showModel.getSoldTickets();
+        soldTickets--;
+        showModel.setSoldTickets(soldTickets);
+
+        this.update(showModel);
+    }
 }

@@ -9,6 +9,9 @@ import businessLogic.model.UserModel;
 import businessLogic.services.ShowService;
 import businessLogic.services.TicketService;
 import businessLogic.services.UserService;
+import businessLogic.utility.factoryMethod.CSVExporter;
+import businessLogic.utility.factoryMethod.Exporter;
+import businessLogic.utility.factoryMethod.XMLExporter;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -23,10 +26,12 @@ public class GUI {
     IUserService userService;
     IShowService showService;
     ITicketService ticketService;
+    Exporter exporter;
     login loginPage;
 
     public GUI() {
         loginPage = new login();
+        new login();
         userService = new UserService();
         showService = new ShowService();
         ticketService = new TicketService();
@@ -192,10 +197,6 @@ public class GUI {
 
             jPanel.add(bReadShows);
 
-            jPanel.add(tExport);
-            jPanel.add(bExportCSV);
-            jPanel.add(bExportXML);
-
             getContentPane().add(jPanel);
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setVisible(true);
@@ -245,33 +246,6 @@ public class GUI {
                 }
             });
 
-            bCreateShow.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    CreateShow createShow = new CreateShow();
-                }
-            });
-
-            bDeleteShow.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    int idshow = Integer.parseInt(tDeleteShow.getText());
-                    System.out.println(idshow);
-
-                    if (showService.deleteById(idshow) == true) {
-                        JOptionPane.showMessageDialog(null, "Show deleted successfully");
-                    } else {
-                        JOptionPane.showMessageDialog(null, "ERROR while deleting Show");
-                    }
-                }
-            });
-
-            bUpdateShow.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    UpdateShow updateShow = new UpdateShow(Integer.parseInt(tUpdateShow.getText()));
-                }
-            });
         }
     }
 
@@ -435,6 +409,36 @@ public class GUI {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     UpdateShow updateShow = new UpdateShow(Integer.parseInt(tUpdateShow.getText()));
+                }
+            });
+
+            bExportCSV.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if(! tExport.getText().isEmpty()) {
+                        int idshow = Integer.parseInt(tExport.getText());
+
+                        exporter = new CSVExporter();
+                        exporter.writeToDisk(ticketService.getAllByShowid(idshow));
+                        JOptionPane.showMessageDialog(null, "Tickets Exported as CSV");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Please insert a show number");
+                    }
+                }
+            });
+
+            bExportXML.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if(! tExport.getText().isEmpty()) {
+                        int idshow = Integer.parseInt(tExport.getText());
+
+                        exporter = new XMLExporter();
+                        exporter.writeToDisk(ticketService.getAllByShowid(idshow));
+                        JOptionPane.showMessageDialog(null, "Tickets Exported as XML");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Please insert a show number");
+                    }
                 }
             });
         }
@@ -605,7 +609,17 @@ public class GUI {
                     ticketModel.setRowNb(Integer.parseInt(tableModel.getValueAt(1, 2).toString()));
                     ticketModel.setOnName(tableModel.getValueAt(1, 3).toString());
 
-                    ticketService.create(ticketModel);
+                    int code = ticketService.create(ticketModel);
+                    if (code == 0) {
+                        JOptionPane.showMessageDialog(null, "Ticket Sold Successfully");
+                    } else if (code == 1) {
+                        JOptionPane.showMessageDialog(null, "Seat and row number Out of bounds");
+                    } else if (code == 2) {
+                        JOptionPane.showMessageDialog(null, "Seat already taken :)");
+                    } else if (code == 3) {
+                        JOptionPane.showMessageDialog(null, "Error inserting into theDB");
+                    }
+
                     System.out.println("TicketModel: " + ticketModel);
                 }
             });
@@ -780,7 +794,16 @@ public class GUI {
                     crtTicket.setRowNb(Integer.parseInt(tableModel.getValueAt(1, 2).toString()));
                     crtTicket.setOnName(tableModel.getValueAt(1, 3).toString());
 
-                    ticketService.update(crtTicket);
+                    int code = ticketService.update(crtTicket);
+                    if (code == 0) {
+                        JOptionPane.showMessageDialog(null, "Ticket Updated Successfully");
+                    } else if (code == 1) {
+                        JOptionPane.showMessageDialog(null, "Seat and row number Out of bounds");
+                    } else if (code == 2) {
+                        JOptionPane.showMessageDialog(null, "Seat already taken :)");
+                    } else if (code == 3) {
+                        JOptionPane.showMessageDialog(null, "Error inserting into theDB");
+                    }
                     System.out.println("CrtTicket: " + crtTicket);
                 }
             });

@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface ITicketService {
 
-    TicketModel getById(int id);
-    List<TicketModel> getAll();
+    public TicketModel getById(int id);
+    public List<TicketModel> getAll();
 
-    boolean create(TicketModel ticketModel);
-    boolean update(TicketModel ticketModel);
-    boolean delete(TicketModel ticketModel);
-    boolean deleteById(int idticket);
+    public int create(TicketModel ticketModel);
+    public int update(TicketModel ticketModel);
+    public boolean delete(TicketModel ticketModel);
+    public boolean deleteById(int idticket);
 
-    List<TicketModel> getAllByShowid(int idshow);
+    public List<TicketModel> getAllByShowid(int idshow);
 }
