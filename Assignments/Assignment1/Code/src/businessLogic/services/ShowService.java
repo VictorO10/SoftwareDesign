@@ -12,8 +12,8 @@ import java.util.List;
 
 public class ShowService implements IShowService{
 
-    IShowRepository showRepository;
-    IShowMapper showMapper;
+    private IShowRepository showRepository;
+    private IShowMapper showMapper;
 
     public ShowService(){
         showRepository = new ShowRepository();
