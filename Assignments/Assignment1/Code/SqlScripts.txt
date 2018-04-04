@@ -1,0 +1,51 @@
+CREATE TABLE `theatre`.`users` (
+  `iduser` INT NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(100) NOT NULL,
+  `permission` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) NULL,
+  PRIMARY KEY (`idUser`));
+  
+  
+  
+INSERT INTO `theatre`.`users` (`username`, `password`, `permission`, `name`) VALUES ('admin', 'admin', 'Admin', 'Administrator');
+INSERT INTO `theatre`.`users` (`username`, `password`, `permission`, `name`) VALUES ('radu', 'radu', 'Cashier', 'Radu');
+INSERT INTO `theatre`.`users` (`username`, `password`, `permission`, `name`) VALUES ('victor', 'victor', 'Cashier', 'Victor');
+INSERT INTO `theatre`.`users` (`username`, `password`, `permission`, `name`) VALUES ('gigel', 'gigel', 'Cashier', 'Gigel');
+
+
+
+
+CREATE TABLE `theatre`.`shows` (
+  `idshow` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(100) NOT NULL,
+  `genre` VARCHAR(45) NOT NULL,
+  `distribution` VARCHAR(200) NULL,
+  `date` DATETIME NULL,
+  `totalTickets` INT NOT NULL,
+  `soldTickets` INT NULL,
+  PRIMARY KEY (`idshow`));
+  
+INSERT INTO `theatre`.`shows` (`Title`, `Genre`, `Distribution`, `Date`, `TotalTickets`, `SoldTickets`) VALUES ('Povesti De Dragoste', 'Romantic', 'Mihai-FLorian Nitu, Diana Buluga, Petre Bacioiu, Radu Largeanu, Ioan Isaiu', '2018-04-03 20:30:00', '100', '0');
+INSERT INTO `theatre`.`shows` (`Title`, `Genre`, `Distribution`, `Date`, `TotalTickets`, `SoldTickets`) VALUES ('Povesti De Dragoste', 'Romantic', 'Mihai-FLorian Nitu, Diana Buluga, Petre Bacioiu, Radu Largeanu, Ioan Isaiu', '2018-04-04 20:30:00', '100', '0');
+INSERT INTO `theatre`.`shows` (`Title`, `Genre`, `Distribution`, `Date`, `TotalTickets`, `SoldTickets`) VALUES ('Cerere in Casatorie', 'Romantic', 'Cornel Raileanu, Alexandra Georgia Siegel, Adriana Bailescu, Oana Raduta, Ioan Isaiu, Sorin Misiriantu', '2018-04-13 19:15:00', '100', '0');
+INSERT INTO `theatre`.`shows` (`Title`, `Genre`, `Distribution`, `Date`, `TotalTickets`, `SoldTickets`) VALUES ('OST(Organic Sound Twist)', 'Musical', 'Andrea Gavriliu', '2018-04-27 20:00:00', '100', '0');
+INSERT INTO `theatre`.`shows` (`Title`, `Genre`, `Distribution`, `Date`, `TotalTickets`, `SoldTickets`) VALUES ('Kean', 'Drama', 'Mihai-Florian Nitu, Alexandra Tarce, Matei Rotaru', '2018-05-06 17:00:00', '100', '0');
+
+
+
+
+CREATE TABLE `theatre`.`tickets` (
+  `idticket` INT NOT NULL AUTO_INCREMENT,
+  `idshow` INT NOT NULL,
+  `seatNb` INT NOT NULL,
+  `rowNb` INT NOT NULL,
+  `onName` VARCHAR(45) NULL,
+  PRIMARY KEY (`idticket`),
+  INDEX `idshow_idx` (`idshow` ASC),
+  CONSTRAINT `idshow`
+    FOREIGN KEY (`idshow`)
+    REFERENCES `theatre`.`show` (`idshow`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
