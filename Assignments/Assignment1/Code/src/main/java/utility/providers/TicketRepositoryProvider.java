@@ -2,7 +2,7 @@ package utility.providers;
 
 import dagger.Module;
 import dagger.Provides;
-import dataAccess.contracts.ITicketRepository;
+import businessLogic.contractsDAO.ITicketRepository;
 import dataAccess.repositories.TicketRepository;
 
 @Module

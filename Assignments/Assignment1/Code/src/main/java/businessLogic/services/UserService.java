@@ -4,9 +4,8 @@ import businessLogic.contracts.IUserMapper;
 import businessLogic.contracts.IUserService;
 import businessLogic.model.UserModel;
 import businessLogic.utility.PasswordEncryptor;
-import dataAccess.contracts.IUserRepository;
+import businessLogic.contractsDAO.IUserRepository;
 import dataAccess.model.UserDto;
-import dataAccess.repositories.UserRepository;
 import utility.components.DaggerIUserRepositoryComponent;
 import utility.components.IUserRepositoryComponent;
 

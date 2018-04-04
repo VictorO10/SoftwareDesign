@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="dagger-compiler-2.15">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/lib/dagger-compiler-2.15.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

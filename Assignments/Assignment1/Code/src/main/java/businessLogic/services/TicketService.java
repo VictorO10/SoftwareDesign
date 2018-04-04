@@ -3,9 +3,8 @@ package businessLogic.services;
 import businessLogic.contracts.ITicketMapper;
 import businessLogic.contracts.ITicketService;
 import businessLogic.model.TicketModel;
-import dataAccess.contracts.ITicketRepository;
+import businessLogic.contractsDAO.ITicketRepository;
 import dataAccess.model.TicketDto;
-import dataAccess.repositories.TicketRepository;
 import utility.components.DaggerITicketRepositoryComponent;
 import utility.components.ITicketRepositoryComponent;
 

@@ -1,6 +1,6 @@
 package dataAccess.repositories;
 
-import dataAccess.contracts.ITicketRepository;
+import businessLogic.contractsDAO.ITicketRepository;
 import dataAccess.model.TicketDto;
 import dataAccess.utility.ConnectionFactory;
 

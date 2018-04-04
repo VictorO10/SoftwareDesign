@@ -1,6 +1,6 @@
 package dataAccess.repositories;
 
-import dataAccess.contracts.IUserRepository;
+import businessLogic.contractsDAO.IUserRepository;
 import dataAccess.model.UserDto;
 import dataAccess.utility.ConnectionFactory;
 

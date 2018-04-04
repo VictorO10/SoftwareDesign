@@ -1,7 +1,7 @@
 package businessLogic.services;
 
+import businessLogic.contractsDAO.IUserRepository;
 import dagger.MembersInjector;
-import dataAccess.contracts.IUserRepository;
 import javax.annotation.Generated;
 import javax.inject.Provider;
 

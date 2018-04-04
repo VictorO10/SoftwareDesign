@@ -5,7 +5,7 @@ import businessLogic.contracts.IShowService;
 import businessLogic.model.ShowModel;
 import utility.components.DaggerIShowRepositoryComponent;
 import utility.components.IShowRepositoryComponent;
-import dataAccess.contracts.IShowRepository;
+import businessLogic.contractsDAO.IShowRepository;
 import dataAccess.model.ShowDto;
 
 import javax.inject.Inject;

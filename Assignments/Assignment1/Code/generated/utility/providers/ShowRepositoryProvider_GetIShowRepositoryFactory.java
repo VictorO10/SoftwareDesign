@@ -1,8 +1,8 @@
 package utility.providers;
 
+import businessLogic.contractsDAO.IShowRepository;
 import dagger.internal.Factory;
 import dagger.internal.Preconditions;
-import dataAccess.contracts.IShowRepository;
 import javax.annotation.Generated;
 
 @Generated(

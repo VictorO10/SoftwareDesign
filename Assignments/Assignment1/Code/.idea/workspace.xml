@@ -20,20 +20,8 @@
               <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#268#269#0" expanded="true" />
-                <element signature="e#311#312#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IShowRepositoryComponent.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/utility/components/IShowRepositoryComponent.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="38" lean-forward="false" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
-              <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#274#275#0" expanded="true" />
+                <element signature="e#317#318#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -49,24 +37,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ITicketRepositoryComponent.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/utility/components/ITicketRepositoryComponent.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="47" lean-forward="false" selection-start-line="4" selection-start-column="47" selection-end-line="4" selection-end-column="47" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="UserRepositoryProvider.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/utility/providers/UserRepositoryProvider.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="187">
               <caret line="14" column="1" lean-forward="true" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
               <folding>
-                <element signature="e#268#269#0" expanded="true" />
-                <element signature="e#311#312#0" expanded="true" />
+                <element signature="e#274#275#0" expanded="true" />
+                <element signature="e#317#318#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -82,12 +60,36 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TicketService.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TicketService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/businessLogic/services/TicketService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+            <state relative-caret-position="-164">
+              <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserServiceTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/businessLogic/tests/UserServiceTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" column="4" lean-forward="false" selection-start-line="9" selection-start-column="4" selection-end-line="27" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TicketServiceTest.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/businessLogic/tests/TicketServiceTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="20" column="33" lean-forward="true" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -96,7 +98,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/businessLogic/services/UserService.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="187">
-              <caret line="23" column="58" lean-forward="false" selection-start-line="23" selection-start-column="58" selection-end-line="23" selection-end-column="58" />
+              <caret line="22" column="58" lean-forward="false" selection-start-line="22" selection-start-column="58" selection-end-line="22" selection-end-column="58" />
               <folding />
             </state>
           </provider>
@@ -118,8 +120,8 @@
             <state relative-caret-position="153">
               <caret line="12" column="25" lean-forward="false" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
               <folding>
-                <element signature="e#278#279#0" expanded="true" />
-                <element signature="e#323#324#0" expanded="true" />
+                <element signature="e#284#285#0" expanded="true" />
+                <element signature="e#329#330#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -132,8 +134,8 @@
       <list>
         <option value="JUnit3 Test Class" />
         <option value="JUnit4 Test Class" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -156,6 +158,7 @@
       <find>updateticket</find>
       <find>Repository</find>
       <find>show</find>
+      <find>User</find>
     </findStrings>
     <replaceStrings>
       <replace>Dto</replace>
@@ -163,15 +166,15 @@
       <replace>Model.g</replace>
       <replace>name</replace>
       <replace>User</replace>
-      <replace>Ticket</replace>
       <replace>Show</replace>
       <replace>crtTicket</replace>
       <replace>update</replace>
       <replace>crtShow</replace>
       <replace>show</replace>
       <replace>Service</replace>
-      <replace>ticket</replace>
       <replace>user</replace>
+      <replace>ticket</replace>
+      <replace>Ticket</replace>
     </replaceStrings>
     <dirStrings>
       <dir>D:\Victor\Facultate\An3Sem2\SD\SoftwareDesign\Assignments\Assignment1\Code\src\main\java\utility\components</dir>
@@ -185,7 +188,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/DataAccess/repositories/ShowRepository.java" />
         <option value="$PROJECT_DIR$/src/DataAccess/repositories/UserRepository.java" />
         <option value="$PROJECT_DIR$/src/DataAccess/repositories/TicketRepository.java" />
         <option value="$PROJECT_DIR$/src/businessLogic/User.java" />
@@ -236,6 +238,7 @@
         <option value="$PROJECT_DIR$/src/main/java/utility/providers/UserRepositoryProvider.java" />
         <option value="$PROJECT_DIR$/src/main/java/businessLogic/services/UserService.java" />
         <option value="$PROJECT_DIR$/src/main/java/businessLogic/services/TicketService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/businessLogic/tests/TicketServiceTest.java" />
       </list>
     </option>
   </component>
@@ -331,7 +334,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="businessLogic" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
+              <item name="contractsDAO" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Code" type="b2602c69:ProjectViewProjectNode" />
@@ -339,25 +342,7 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="utility" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Code" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Code" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="utility" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Code" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Code" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="utility" type="462c0819:PsiDirectoryNode" />
-              <item name="providers" type="462c0819:PsiDirectoryNode" />
+              <item name="dataAccess" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Code" type="b2602c69:ProjectViewProjectNode" />
@@ -390,6 +375,7 @@
       <recent name="dataAccess.repositories" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="businessLogic" />
       <recent name="components" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -416,7 +402,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -435,6 +421,31 @@
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="Code" />
       <envs />
+    </configuration>
+    <configuration name="TicketServiceTest.create" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="businessLogic.tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="Code" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="businessLogic.tests" />
+      <option name="MAIN_CLASS_NAME" value="businessLogic.tests.TicketServiceTest" />
+      <option name="METHOD_NAME" value="create" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
     </configuration>
     <configuration name="UserRepositoryTest.create" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
@@ -567,16 +578,20 @@
       <properties />
       <listeners />
     </configuration>
-    <list size="3">
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Application.Main" />
       <item index="1" class="java.lang.String" itemvalue="Android JUnit.UserRepositoryTest.create" />
       <item index="2" class="java.lang.String" itemvalue="Android JUnit.UserServiceTest" />
+      <item index="3" class="java.lang.String" itemvalue="Android JUnit.TicketServiceTest.create" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.TicketServiceTest.create" />
     </list>
     <recent_temporary>
-      <list size="3">
+      <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Application.Main" />
-        <item index="1" class="java.lang.String" itemvalue="Android JUnit.UserServiceTest" />
-        <item index="2" class="java.lang.String" itemvalue="Android JUnit.UserRepositoryTest.create" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.TicketServiceTest.create" />
+        <item index="2" class="java.lang.String" itemvalue="Android JUnit.TicketServiceTest.create" />
+        <item index="3" class="java.lang.String" itemvalue="Android JUnit.UserServiceTest" />
+        <item index="4" class="java.lang.String" itemvalue="Android JUnit.UserRepositoryTest.create" />
       </list>
     </recent_temporary>
   </component>
@@ -597,29 +612,32 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="UserRepositoryTest_create - 2018.03.28 at 16h 34m 26s.xml">
-      <configuration name="UserRepositoryTest.create" configurationId="JUnit" />
+    <history-entry file="TicketServiceTest_create - 2018.04.04 at 11h 57m 29s.xml">
+      <configuration name="TicketServiceTest.create" configurationId="AndroidJUnit" />
     </history-entry>
-    <history-entry file="UserRepositoryTest_create - 2018.03.28 at 17h 45m 59s.xml">
-      <configuration name="UserRepositoryTest.create" configurationId="JUnit" />
+    <history-entry file="TicketServiceTest_create - 2018.04.04 at 11h 57m 36s.xml">
+      <configuration name="TicketServiceTest.create" configurationId="AndroidJUnit" />
     </history-entry>
-    <history-entry file="UserRepositoryTest_create - 2018.03.28 at 17h 46m 52s.xml">
-      <configuration name="UserRepositoryTest.create" configurationId="AndroidJUnit" />
+    <history-entry file="TicketServiceTest_create - 2018.04.04 at 11h 57m 46s.xml">
+      <configuration name="TicketServiceTest.create" configurationId="AndroidJUnit" />
     </history-entry>
-    <history-entry file="UserRepositoryTest_create - 2018.03.28 at 17h 47m 18s.xml">
-      <configuration name="UserRepositoryTest.create" configurationId="AndroidJUnit" />
+    <history-entry file="TicketServiceTest_create - 2018.04.04 at 11h 58m 40s.xml">
+      <configuration name="TicketServiceTest.create" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UserRepositoryTest_create - 2018.03.28 at 17h 50m 51s.xml">
-      <configuration name="UserRepositoryTest.create" configurationId="AndroidJUnit" />
+    <history-entry file="TicketServiceTest_create - 2018.04.04 at 11h 59m 14s.xml">
+      <configuration name="TicketServiceTest.create" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UserRepositoryTest_create - 2018.04.04 at 10h 57m 23s.xml">
-      <configuration name="UserRepositoryTest.create" configurationId="AndroidJUnit" />
+    <history-entry file="TicketServiceTest_create - 2018.04.04 at 11h 59m 30s.xml">
+      <configuration name="TicketServiceTest.create" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UserServiceTest - 2018.03.28 at 17h 50m 19s.xml">
-      <configuration name="UserServiceTest" configurationId="AndroidJUnit" />
+    <history-entry file="TicketServiceTest_create - 2018.04.04 at 11h 59m 35s.xml">
+      <configuration name="TicketServiceTest.create" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UserServiceTest - 2018.03.28 at 17h 50m 37s.xml">
-      <configuration name="UserServiceTest" configurationId="AndroidJUnit" />
+    <history-entry file="TicketServiceTest_create - 2018.04.04 at 12h 13m 54s.xml">
+      <configuration name="TicketServiceTest.create" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TicketServiceTest_create - 2018.04.04 at 12h 14m 17s.xml">
+      <configuration name="TicketServiceTest.create" configurationId="JUnit" />
     </history-entry>
     <history-entry file="UserServiceTest - 2018.04.04 at 10h 58m 13s.xml">
       <configuration name="UserServiceTest" configurationId="AndroidJUnit" />
@@ -643,7 +661,7 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3993576" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14882226" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14846236" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -707,13 +725,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/dataAccess/model/ShowDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="28" lean-forward="false" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/dataAccess/model/TicketDto.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
@@ -721,7 +732,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dataAccess/contracts/IUserRepository.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/businessLogic/contractsDAO/IUserRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
@@ -749,7 +760,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dataAccess/contracts/ITicketRepository.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/businessLogic/contractsDAO/ITicketRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="16" column="38" lean-forward="true" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
@@ -823,14 +834,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/dataAccess/repositories/ShowRepositoryTest.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/businessLogic/tests/UserServiceTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="42" lean-forward="false" selection-start-line="3" selection-start-column="42" selection-end-line="3" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dataAccess/contracts/IShowRepository.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/businessLogic/contractsDAO/IShowRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="16" column="31" lean-forward="false" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
@@ -935,12 +939,12 @@
           <caret line="133" column="21" lean-forward="false" selection-start-line="133" selection-start-column="21" selection-end-line="133" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1522222542541" expanded="true" signature="1719:1738" ph=" SELECT statement (SHOWS)" />
-            <marker date="1522222542541" expanded="true" signature="2370:2520" ph=" UPDATE statement (SHOWS)" />
-            <marker date="1522222542541" expanded="true" signature="3652:3686" ph=" DELETE statement (SHOWS)" />
-            <marker date="1522222542541" expanded="true" signature="4273:4403" ph=" INSERT statement (SHOWS)" />
-            <marker date="1522222542541" expanded="true" signature="5454:5490" ph=" SELECT statement (SHOWS)" />
-            <marker date="1522222542541" expanded="true" signature="5486:5490" ph=" SELECT statement (USERS)" />
+            <marker date="1522836830920" expanded="true" signature="1725:1744" ph=" SELECT statement (SHOWS)" />
+            <marker date="1522836830920" expanded="true" signature="2376:2526" ph=" UPDATE statement (SHOWS)" />
+            <marker date="1522836830920" expanded="true" signature="3658:3692" ph=" DELETE statement (SHOWS)" />
+            <marker date="1522836830920" expanded="true" signature="4279:4409" ph=" INSERT statement (SHOWS)" />
+            <marker date="1522836830920" expanded="true" signature="5460:5496" ph=" SELECT statement (SHOWS)" />
+            <marker date="1522836830920" expanded="true" signature="5492:5496" ph=" SELECT statement (USERS)" />
           </folding>
         </state>
       </provider>
@@ -951,16 +955,16 @@
           <caret line="101" column="0" lean-forward="false" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1522222542556" expanded="true" signature="1548:1565" ph=" SELECT statement" />
-            <marker date="1522222542556" expanded="true" signature="1548:1566" ph=" SELECT statement" />
-            <marker date="1522222542556" expanded="true" signature="1548:1567" ph=" SELECT statement (USERS)" />
-            <marker date="1522222542556" expanded="true" signature="2199:2268" ph=" UPDATE statement" />
-            <marker date="1522222542556" expanded="true" signature="2199:2318" ph=" UPDATE statement" />
-            <marker date="1522222542556" expanded="true" signature="3197:3231" ph=" DELETE statement (USERS)" />
-            <marker date="1522222542556" expanded="true" signature="3818:3874" ph=" INSERT statement (USERS)" />
-            <marker date="1522222542556" expanded="true" signature="3818:3919" ph=" INSERT statement (USERS)" />
-            <marker date="1522222542556" expanded="true" signature="4717:4736" ph=" SELECT statement (USERS)" />
-            <marker date="1522222542556" expanded="true" signature="4717:4753" ph=" SELECT statement (USERS)" />
+            <marker date="1522836830904" expanded="true" signature="1554:1571" ph=" SELECT statement" />
+            <marker date="1522836830904" expanded="true" signature="1554:1572" ph=" SELECT statement" />
+            <marker date="1522836830904" expanded="true" signature="1554:1573" ph=" SELECT statement (USERS)" />
+            <marker date="1522836830904" expanded="true" signature="2205:2274" ph=" UPDATE statement" />
+            <marker date="1522836830904" expanded="true" signature="2205:2324" ph=" UPDATE statement" />
+            <marker date="1522836830904" expanded="true" signature="3203:3237" ph=" DELETE statement (USERS)" />
+            <marker date="1522836830904" expanded="true" signature="3824:3880" ph=" INSERT statement (USERS)" />
+            <marker date="1522836830904" expanded="true" signature="3824:3925" ph=" INSERT statement (USERS)" />
+            <marker date="1522836830904" expanded="true" signature="4723:4742" ph=" SELECT statement (USERS)" />
+            <marker date="1522836830904" expanded="true" signature="4723:4759" ph=" SELECT statement (USERS)" />
           </folding>
         </state>
       </provider>
@@ -1004,12 +1008,12 @@
         <state relative-caret-position="425">
           <caret line="34" column="13" lean-forward="false" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
           <folding>
-            <marker date="1522222542525" expanded="true" signature="1546:1567" ph=" SELECT statement (TICKETS)" />
-            <marker date="1522222542525" expanded="true" signature="2203:2319" ph=" UPDATE statement (TICKETS)" />
-            <marker date="1522222542525" expanded="true" signature="3143:3181" ph=" DELETE statement (TICKETS)" />
-            <marker date="1522222542525" expanded="true" signature="3776:3872" ph=" INSERT statement (TICKETS)" />
-            <marker date="1522222542525" expanded="true" signature="4664:4704" ph=" SELECT statement (TICKETS)" />
-            <marker date="1522222542525" expanded="true" signature="4700:4704" ph=" SELECT statement (SHOWS)" />
+            <marker date="1522836830810" expanded="true" signature="1552:1573" ph=" SELECT statement (TICKETS)" />
+            <marker date="1522836830810" expanded="true" signature="2209:2325" ph=" UPDATE statement (TICKETS)" />
+            <marker date="1522836830810" expanded="true" signature="3149:3187" ph=" DELETE statement (TICKETS)" />
+            <marker date="1522836830810" expanded="true" signature="3782:3878" ph=" INSERT statement (TICKETS)" />
+            <marker date="1522836830810" expanded="true" signature="4670:4710" ph=" SELECT statement (TICKETS)" />
+            <marker date="1522836830810" expanded="true" signature="4706:4710" ph=" SELECT statement (SHOWS)" />
           </folding>
         </state>
       </provider>
@@ -1070,8 +1074,8 @@
           <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#268#269#0" expanded="true" />
-            <element signature="e#311#312#0" expanded="true" />
+            <element signature="e#274#275#0" expanded="true" />
+            <element signature="e#317#318#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1081,8 +1085,8 @@
         <state relative-caret-position="153">
           <caret line="12" column="25" lean-forward="false" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
           <folding>
-            <element signature="e#278#279#0" expanded="true" />
-            <element signature="e#323#324#0" expanded="true" />
+            <element signature="e#284#285#0" expanded="true" />
+            <element signature="e#329#330#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1092,8 +1096,8 @@
         <state relative-caret-position="187">
           <caret line="14" column="1" lean-forward="true" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
           <folding>
-            <element signature="e#268#269#0" expanded="true" />
-            <element signature="e#311#312#0" expanded="true" />
+            <element signature="e#274#275#0" expanded="true" />
+            <element signature="e#317#318#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1117,16 +1121,36 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/businessLogic/services/UserService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
-          <caret line="23" column="58" lean-forward="false" selection-start-line="23" selection-start-column="58" selection-end-line="23" selection-end-column="58" />
+          <caret line="22" column="58" lean-forward="false" selection-start-line="22" selection-start-column="58" selection-end-line="22" selection-end-column="58" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/businessLogic/services/TicketService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+        <state relative-caret-position="-164">
+          <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/businessLogic/tests/UserServiceTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="4" lean-forward="false" selection-start-line="9" selection-start-column="4" selection-end-line="27" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/businessLogic/tests/TicketServiceTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="33" lean-forward="true" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

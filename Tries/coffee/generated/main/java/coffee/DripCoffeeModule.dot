@@ -1,0 +1,9 @@
+digraph G1 {
+  concentrate = true;
+  CoffeeApp -> CoffeeMaker;
+  n2 [label="Lazy<main.java.coffee.Heater>"];
+  CoffeeMaker -> n2;
+  CoffeeMaker -> Pump;
+  Pump -> Thermosiphon;
+  Thermosiphon -> Heater;
+}
