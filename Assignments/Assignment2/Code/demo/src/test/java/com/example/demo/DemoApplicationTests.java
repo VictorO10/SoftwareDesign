@@ -32,16 +32,16 @@ public class DemoApplicationTests {
 		assert(sizeBefore == sizeAfter - 1);
 	}
 
-	@Test
-	public void removeLaboratory(){
-		int sizeBefore = laboratoryController.getAllLaboratorys().size();
-
-		laboratoryController.deleteLaboratoryLabNb(Long.parseLong("50"));
-
-		int sizeAfter = laboratoryController.getAllLaboratorys().size();
-
-		assert(sizeBefore == sizeAfter + 1);
-	}
+//	@Test
+//	public void removeLaboratory(){
+//		int sizeBefore = laboratoryController.getAllLaboratorys().size();
+//
+//		laboratoryController.deleteLaboratoryLabNb(Long.parseLong("50"));
+//
+//		int sizeAfter = laboratoryController.getAllLaboratorys().size();
+//
+//		assert(sizeBefore == sizeAfter + 1);
+//	}
 
 
 

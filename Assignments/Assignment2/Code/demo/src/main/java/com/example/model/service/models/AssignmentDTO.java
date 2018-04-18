@@ -1,5 +1,7 @@
 package com.example.model.service.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -23,10 +25,12 @@ public class AssignmentDTO implements Serializable{
     public AssignmentDTO(){
     }
 
+    @JsonIgnore
     public Long getIdassignment() {
         return idassignment;
     }
 
+    @JsonIgnore
     public void setIdassignment(Long idassignment) {
         this.idassignment = idassignment;
     }

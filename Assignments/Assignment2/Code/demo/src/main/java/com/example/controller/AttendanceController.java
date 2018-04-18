@@ -4,9 +4,12 @@ import com.example.controller.exceptions.AttendanceNotFoundException;
 import com.example.model.service.contracts.AttendanceService;
 import com.example.model.service.models.AttendanceDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -28,8 +31,8 @@ public class AttendanceController {
         return "Attendance ID not found!";
     }
 
-    @GetMapping("getAttendances")
-    public List<AttendanceDTO> getAllAttendances(){
+    @GetMapping("")
+    public List<AttendanceDTO> getAllAttendances(@RequestParam(required=false) Long iduser, @RequestParam(required=false) Long idlaboratory){
         try {
             return attendanceService.getAllAttendances();
         } catch(Exception e){
@@ -38,44 +41,50 @@ public class AttendanceController {
         }
     }
 
-    @GetMapping("getAttendanceById")
-    public AttendanceDTO getAttendanceById(@RequestParam Long idattendance){
+    @GetMapping("{id}")
+    public AttendanceDTO getAttendanceById(@PathVariable("id")Long attendanceId){
         try {
-            return attendanceService.getAttendanceByID(idattendance);
+            System.out.println("id" + attendanceId);
+            return attendanceService.getAttendanceByID(attendanceId);
         } catch(Exception e) {
             e.printStackTrace();
             throw new AttendanceNotFoundException();
         }
     }
 
-    @GetMapping("findAttendanceByUserId")
-    public List<AttendanceDTO> findAttendanceByUserId(@RequestParam Long iduser){
-        try{
-            List<AttendanceDTO> attendances = attendanceService.findByIduser(iduser);
-            return attendances;
-        } catch(Exception e) {
-            e.printStackTrace();
-            throw new AttendanceNotFoundException();
-        }
-    }
+//    @GetMapping("")
+//    public List<AttendanceDTO> findAttendanceByUserId(@RequestParam(required=false) Long iduser, @RequestParam(required=false) Long idlaboratory){
+//
+//        try{
+//            if(iduser != null) {
+//                List<AttendanceDTO> attendances = attendanceService.findByIduser(iduser);
+//                return attendances;
+//            } else {
+//                if(idlaboratory != null) {
+//                    List<AttendanceDTO> attendances = attendanceService.findByIdlaboratory(idlaboratory);
+//                    return attendances;
+//                } else {
+//                    return null;
+//                }
+//            }
+//        } catch(Exception e) {
+//            e.printStackTrace();
+//            throw new AttendanceNotFoundException();
+//        }
+//    }
 
-    @GetMapping("findAttendanceByLaboratoryId")
-    public List<AttendanceDTO> findAttendanceByLaboratoryId(@RequestParam Long idlaboratory){
-        try{
-            List<AttendanceDTO> attendances = attendanceService.findByIdlaboratory(idlaboratory);
-            return attendances;
-        } catch(Exception e) {
-            e.printStackTrace();
-            throw new AttendanceNotFoundException();
-        }
-    }
+//    @GetMapping("")
+//    public List<AttendanceDTO> findAttendanceByLaboratoryId(){
+//        try{
+//            List<AttendanceDTO> attendances = attendanceService.findByIdlaboratory(idlaboratory);
+//            return attendances;
+//        } catch(Exception e) {
+//            e.printStackTrace();
+//            throw new AttendanceNotFoundException();
+//        }
+//    }
 
-    @PostMapping("markPresent")
-    public AttendanceDTO markPresent(@RequestParam Long iduser, @RequestParam Long idlaboratory, @RequestParam int bonusPoints) {
-        return attendanceService.markPresent(iduser, idlaboratory, bonusPoints);
-    }
-
-    @PostMapping("saveAttendance")
+    @PostMapping("")
     public AttendanceDTO saveAttendance(@RequestBody AttendanceDTO attendanceDTO) {
         try {
             return attendanceService.saveAttendance(attendanceDTO);
@@ -85,7 +94,7 @@ public class AttendanceController {
         }
     }
 
-    @PutMapping("updateAttendance")
+    @PutMapping("")
     public AttendanceDTO updateAttendance(@RequestParam Long idattendance, @RequestBody AttendanceDTO attendanceDTO){
         try {
             return attendanceService.updateAttendance(idattendance, attendanceDTO);
@@ -95,8 +104,8 @@ public class AttendanceController {
         }
     }
 
-    @DeleteMapping("deleteAttendanceById")
-    public String deleteAttendanceById(Long idattendance) {
+    @DeleteMapping("{id}")
+    public String deleteAttendanceById(@PathVariable("id")Long idattendance) {
         try {
             attendanceService.deleteAttendanceById(idattendance);
             return "Attendance with id = " + idattendance + " successfully deleted!";

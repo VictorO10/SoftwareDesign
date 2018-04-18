@@ -28,8 +28,8 @@ public class AssignmentController {
         return "Assignment ID not found!";
     }
 
-    @GetMapping("getAssignments")
-    public List<AssignmentDTO> getAllAssignments(){
+    @GetMapping("")
+    public List<AssignmentDTO> getAllAssignments(@RequestParam(required=false) Long laboratoryId){
         try {
             return assignmentService.getAllAssignments();
         } catch(Exception e){
@@ -38,8 +38,8 @@ public class AssignmentController {
         }
     }
 
-    @GetMapping("getAssignmentById")
-    public AssignmentDTO getAssignmentById(@RequestParam Long idassignment){
+    @GetMapping("{id}")
+    public AssignmentDTO getAssignmentById(@PathVariable("id") Long idassignment){
         try {
             return assignmentService.getAssignmentByID(idassignment);
         } catch(Exception e) {
@@ -48,19 +48,19 @@ public class AssignmentController {
         }
     }
 
-    @GetMapping("findAssignmentByLaboratoryId")
-    public List<AssignmentDTO> findAssignmentByLaboratoryId(@RequestParam Long idlaboratory){
-        try{
-            List<AssignmentDTO> assignments = assignmentService.findByIdlaboratory(idlaboratory);
-            return assignments;
+//    @GetMapping("findAssignmentByLaboratoryId")
+//    public List<AssignmentDTO> findAssignmentByLaboratoryId(@RequestParam Long idlaboratory){
+//        try{
+//            List<AssignmentDTO> assignments = assignmentService.findByIdlaboratory(idlaboratory);
+//            return assignments;
+//
+//        } catch(Exception e) {
+//            e.printStackTrace();
+//            throw new AssignmentNotFoundException();
+//        }
+//    }
 
-        } catch(Exception e) {
-            e.printStackTrace();
-            throw new AssignmentNotFoundException();
-        }
-    }
-
-    @PostMapping("saveAssignment")
+    @PostMapping("")
     public AssignmentDTO saveAssignment(@RequestBody AssignmentDTO assignmentDTO) {
         try {
             return assignmentService.saveAssignment(assignmentDTO);
@@ -70,7 +70,7 @@ public class AssignmentController {
         }
     }
 
-    @PutMapping("updateAssignment")
+    @PutMapping("")
     public AssignmentDTO updateAssignment(@RequestParam Long idassignment, @RequestBody AssignmentDTO assignmentDTO){
         try {
             return assignmentService.updateAssignment(idassignment, assignmentDTO);
@@ -80,8 +80,8 @@ public class AssignmentController {
         }
     }
 
-    @DeleteMapping("deleteAssignmentById")
-    public String deleteAssignmentById(Long idassignment) {
+    @DeleteMapping("{id}")
+    public String deleteAssignmentById(@PathVariable("id") Long idassignment) {
         try {
             assignmentService.deleteAssignmentById(idassignment);
             return "Assignment with id = " + idassignment + " successfully deleted!";

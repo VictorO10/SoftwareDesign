@@ -1,8 +1,6 @@
-package com.example.model.service.models;
+package com.example.controller.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-public class AssignUserDTO {
+public class SubmissionControllerModel {
 
     private Long idassignuser;
 
@@ -14,17 +12,19 @@ public class AssignUserDTO {
 
     private Long iduser;
 
+    private String emailUser;
+
+
+
     private Long idassignment;
 
-    public AssignUserDTO() {
+    public SubmissionControllerModel() {
     }
 
-    @JsonIgnore
     public Long getIdassignuser() {
         return idassignuser;
     }
 
-    @JsonIgnore
     public void setIdassignuser(Long idassignuser) {
         this.idassignuser = idassignuser;
     }
@@ -67,5 +67,13 @@ public class AssignUserDTO {
 
     public void setIdassignment(Long idassignment) {
         this.idassignment = idassignment;
+    }
+
+    public String getEmailUser() {
+        return emailUser;
+    }
+
+    public void setEmailUser(String emailUser) {
+        this.emailUser = emailUser;
     }
 }

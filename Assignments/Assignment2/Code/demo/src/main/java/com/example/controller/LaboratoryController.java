@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.controller.exceptions.LaboratoryNotFoundException;
+import com.example.controller.exceptions.LaboratoryNumberExistsException;
 import com.example.model.service.contracts.LaboratoryService;
 import com.example.model.service.models.LaboratoryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,13 @@ public class LaboratoryController {
         return "Laboratory ID not found!";
     }
 
-    @GetMapping("getLaboratories")
+    @ExceptionHandler(LaboratoryNumberExistsException.class)
+    @ResponseStatus(HttpStatus.OK)
+    public String handleLaboratoryNumberExistsException() {
+        return "Laboratory with this number already exists!";
+    }
+
+    @GetMapping("")
     public List<LaboratoryDTO> getAllLaboratorys(){
         try {
             return laboratoryService.getAllLaboratories();
@@ -38,8 +45,8 @@ public class LaboratoryController {
         }
     }
 
-    @GetMapping("getLaboratoryById")
-    public LaboratoryDTO getLaboratoryById(@RequestParam Long idlaboratory){
+    @GetMapping("{id}")
+    public LaboratoryDTO getLaboratoryById(@PathVariable("id") Long idlaboratory){
         try {
             return laboratoryService.getLaboratoryByID(idlaboratory);
         } catch(Exception e) {
@@ -48,17 +55,17 @@ public class LaboratoryController {
         }
     }
 
-    @PostMapping("saveLaboratory")
+    @PostMapping("")
     public LaboratoryDTO saveLaboratory(@RequestBody LaboratoryDTO laboratoryDTO) {
         try {
             return laboratoryService.saveLaboratory(laboratoryDTO);
         } catch(Exception e) {
             e.printStackTrace();
-            return null;
+            throw new LaboratoryNumberExistsException();
         }
     }
 
-    @PutMapping("updateLaboratory")
+    @PutMapping("")
     public LaboratoryDTO updateLaboratory(@RequestParam Long idlaboratory, @RequestBody LaboratoryDTO laboratoryDTO){
         try {
             return laboratoryService.updateLaboratory(idlaboratory, laboratoryDTO);
@@ -68,13 +75,8 @@ public class LaboratoryController {
         }
     }
 
-    @GetMapping("findByKeyword")
-    public List<LaboratoryDTO> findByKeyword(@RequestParam String keyword) {
-        return laboratoryService.findByKeyword(keyword);
-    }
-
-    @DeleteMapping("deleteLaboratoryById")
-    public String deleteLaboratoryById(Long idlaboratory) {
+    @DeleteMapping("{id}")
+    public String deleteLaboratoryById(@PathVariable("id") Long idlaboratory) {
         try {
             laboratoryService.deleteLaboratoryById(idlaboratory);
             return "Laboratory with id = " + idlaboratory + " successfully deleted!";
@@ -84,15 +86,15 @@ public class LaboratoryController {
         }
     }
 
-    @DeleteMapping("deleteLaboratoryLabNb")
-    public String deleteLaboratoryLabNb(Long labNb) {
-        try {
-            laboratoryService.deleteLaboratoryByLabNb(labNb);
-            return "Laboratory with id = " + labNb + " successfully deleted!";
-        } catch(Exception e) {
-            e.getMessage();
-            throw new LaboratoryNotFoundException();
-        }
-    }
+//    @DeleteMapping("deleteLaboratoryLabNb")
+//    public String deleteLaboratoryLabNb(Long labNb) {
+//        try {
+//            laboratoryService.deleteLaboratoryByLabNb(labNb);
+//            return "Laboratory with id = " + labNb + " successfully deleted!";
+//        } catch(Exception e) {
+//            e.getMessage();
+//            throw new LaboratoryNotFoundException();
+//        }
+//    }
 }
 

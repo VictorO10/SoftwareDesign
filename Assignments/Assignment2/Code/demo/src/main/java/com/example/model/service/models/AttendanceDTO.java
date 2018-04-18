@@ -1,5 +1,7 @@
 package com.example.model.service.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class AttendanceDTO {
 
     private Long idattendance;
@@ -13,10 +15,12 @@ public class AttendanceDTO {
     public AttendanceDTO() {
     }
 
+    @JsonIgnore
     public Long getIdattendance() {
         return idattendance;
     }
 
+    @JsonIgnore
     public void setIdattendance(Long idattendance) {
         this.idattendance = idattendance;
     }

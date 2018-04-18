@@ -1,5 +1,7 @@
 package com.example.model.service.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -42,11 +44,12 @@ public class LaboratoryDTO implements Serializable{
 //        this.longDescription = longDescription;
 //        this.assignments = assignments;
 //    }
-
+    @JsonIgnore
     public Long getIdlaboratory() {
         return idlaboratory;
     }
 
+    @JsonIgnore
     public void setIdlaboratory(Long idlaboratory) {
         this.idlaboratory = idlaboratory;
     }

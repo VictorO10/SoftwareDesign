@@ -1,15 +1,19 @@
 package com.example.model.service.impl;
 
 import com.example.model.dao.AssignUserDAO;
+import com.example.model.dao.AssignmentDAO;
 import com.example.model.dao.UserDAO;
 import com.example.model.dao.models.AssignUserModel;
+import com.example.model.dao.models.AssignmentModel;
 import com.example.model.dao.models.UserModel;
 import com.example.model.service.contracts.AssignUserService;
+import com.example.model.service.exceptions.DeadlinePassedException;
 import com.example.model.service.mappers.AssignUserMapper;
 import com.example.model.service.models.AssignUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,13 +21,15 @@ import java.util.stream.Collectors;
 public class AssignUserServiceImpl implements AssignUserService {
 
     private final AssignUserDAO assignUserDAO;
+    private final AssignmentDAO assignmentDAO;
     private final UserDAO userDAO;
     private final AssignUserMapper assignUserMapper;
 
     @Autowired
-    public AssignUserServiceImpl(AssignUserDAO assignUserDAO, UserDAO userDAO) {
+    public AssignUserServiceImpl(AssignUserDAO assignUserDAO, UserDAO userDAO, AssignmentDAO assignmentDAO) {
         this.assignUserDAO = assignUserDAO;
         this.userDAO = userDAO;
+        this.assignmentDAO = assignmentDAO;
         assignUserMapper = new AssignUserMapper();
     }
 
@@ -88,18 +94,25 @@ public class AssignUserServiceImpl implements AssignUserService {
     }
 
     @Override
-    public AssignUserDTO submitAssignment(String email, Long idassingment, String gitRepo, String remark) {
+    public AssignUserDTO submitAssignment(String email, Long idassingment, String gitRepo, String remark) throws DeadlinePassedException {
         AssignUserDTO assignUserDTO = new AssignUserDTO();
-
-        assignUserDTO.setGitrepo(gitRepo);
-        assignUserDTO.setRemark(remark);
 
         UserModel userModel = userDAO.findByEmail(email);
 
+        assignUserDTO.setGitrepo(gitRepo);
+        assignUserDTO.setRemark(remark);
         assignUserDTO.setIduser(userModel.getIduser());
         assignUserDTO.setIdassignment(idassingment);
 
-        return this.saveAssignUser(assignUserDTO);
+
+
+        AssignmentModel assignmentModel = assignmentDAO.findById(idassingment).get();
+        if(assignmentModel.getDeadline().compareTo(new Date()) < 0) { //deadline passed
+            throw new DeadlinePassedException();
+        } else {
+
+            return this.saveAssignUser(assignUserDTO);
+        }
     }
 
     @Override

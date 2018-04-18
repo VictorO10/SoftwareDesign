@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.controller.exceptions.UserNotFoundException;
+import com.example.controller.exceptions.UserWithEmailExistsException;
 import com.example.model.service.models.UserDTO;
 import com.example.model.service.contracts.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,13 @@ public class UserController {
         return "User ID not found!";
     }
 
-    @GetMapping("getUsers")
+    @ExceptionHandler(UserWithEmailExistsException.class)
+    @ResponseStatus(HttpStatus.OK)
+    public String handleUserWithEmailExistsException() {
+        return "There already is a User with this email!";
+    }
+
+    @GetMapping("")
     public List<UserDTO> getAllUsers(){
         try {
             return userService.getAllUsers();
@@ -38,8 +45,8 @@ public class UserController {
         }
     }
 
-    @GetMapping("getUserById")
-    public UserDTO getUserById(@RequestParam Long iduser){
+    @GetMapping("{id}")
+    public UserDTO getUserById(@PathVariable("id") Long iduser){
         try {
             return userService.getUserByID(iduser);
         } catch(Exception e) {
@@ -48,7 +55,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("saveUser")
+    @PostMapping("")
     public UserDTO saveUser(@RequestBody UserDTO userDTO) {
         try {
             return userService.saveUser(userDTO);
@@ -58,27 +65,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("registerStudent")
-    public UserDTO registerStudent(@RequestParam String email, @RequestParam String fullName, @RequestParam String group, @RequestParam String hobby) {
-        try {
-            return userService.registerStudent(email, fullName, group, hobby);
-        } catch(Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    @PostMapping("registerWithToken")
-    public UserDTO registerWithToken(@RequestParam String token, @RequestParam String pass) {
-        try {
-            return userService.registerWithToken(token, pass);
-        } catch(Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    @PutMapping("updateUser")
+    @PutMapping("")
     public UserDTO updateUser(@RequestParam Long iduser, @RequestBody UserDTO userDTO){
         try {
             return userService.updateUser(iduser, userDTO);
@@ -88,13 +75,10 @@ public class UserController {
         }
     }
 
-    @PostMapping("login")
-    public String login(@RequestParam String email, @RequestParam String password) {
-        return userService.login(email, password);
-    }
 
-    @DeleteMapping("deleteUserById")
-    public String deleteUserById(Long iduser) {
+
+    @DeleteMapping("{id}")
+    public String deleteUserById(@PathVariable("id") Long iduser) {
         try {
             userService.deleteUserById(iduser);
             return "User with id = " + iduser + " successfully deleted!";

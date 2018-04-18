@@ -1,5 +1,7 @@
 package com.example.model.service.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 
 public class UserDTO implements Serializable {
@@ -34,10 +36,12 @@ public class UserDTO implements Serializable {
         this.token = token;
     }
 
+    @JsonIgnore
     public Long getIduser() {
         return iduser;
     }
 
+    @JsonIgnore
     public void setIduser(Long iduser) {
         this.iduser = iduser;
     }
