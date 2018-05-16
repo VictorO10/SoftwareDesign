@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/default">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+</head>
+<body>
+
+<!--<p th:utext="${#SecurityContextHolder.getContext().getAuthentication().getName()}" />-->
+<div id="page" layout:fragment="content">
+    <div>
+        Hello student! Kindly register with the token you've received via email.
+    </div>
+
+    <div>
+        [[${topMessage}]]
+    </div>
+
+    <form th:object="${userModel}" th:action="${#httpServletRequest.requestURI}" method="post">
+        <table>
+            <tr>
+                <td>E-mail: </td>
+                <td><input type="text" th:field="*{email}"></td>
+            </tr>
+            <tr>
+                <td>Token: </td>
+                <td><input type="text" th:field="*{token}"></td>
+            </tr>
+            <tr>
+                <td>Password: </td>
+                <td><input type="password" th:field="*{password}"></td>
+            </tr>
+        </table>
+        <input type="submit" value="Submit Edit"/>
+    </form>
+
+</div>
+
+
+<iframe name="hiddenFrame" width="0" height="0" border="0" style="display: none;"></iframe>
+</body>
+</html>

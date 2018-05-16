@@ -1,0 +1,56 @@
+<div class="menu" th:fragment="menu" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+        <!-- ============================================================================ -->
+        <!-- This content is only used for static prototyping purposes (natural templates)-->
+        <!-- and is therefore entirely optional, as this markup fragment will be included -->
+        <!-- from "fragments/header.html" at runtime.                                     -->
+        <!-- ============================================================================ -->
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Home</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li th:classappend="${module == 'Laboratories' ? 'active' : ''}">
+                        <a href="#" th:href="@{/laboratory}">Laboratories</a>
+                    </li>
+                    <li th:classappend="${module == 'registerByTeacher' ? 'active' : ''}" sec:authorize="hasRole('ROLE_TEACHER')">
+                        <a href="#" th:href="@{/registerByTeacher}">Register Student</a>
+                    </li>
+
+                    <li th:classappend="${module == 'submission' ? 'active' : ''}">
+                        <a href="#" th:href="@{/submission}">Submissions</a>
+                    </li>
+
+                    <li th:classappend="${module == 'attendance' ? 'active' : ''}">
+                        <a href="#" th:href="@{/attendance}">Attendance</a>
+                    </li>
+
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li th:if="${#authorization.expression('!isAuthenticated()')}">
+                        <a href="/login" th:href="@{/login}">
+                            <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;Sign in
+                        </a>
+                    </li>
+                    <li th:if="${#authorization.expression('isAuthenticated()')}">
+                        <a href="/logout" th:href="@{#}" onclick="$('#form').submit();">
+                            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout
+                        </a>
+                        <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </nav>
+
+</div>

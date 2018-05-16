@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/default">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+</head>
+<body>
+
+<!--<p th:utext="${#SecurityContextHolder.getContext().getAuthentication().getName()}" />-->
+<div id="page" layout:fragment="content">
+    <div>
+        Hello
+        <font color="blue"><b>
+<span sec:authentication="name">
+    Bob
+</span>
+        </b></font>
+        . Here are the submissions.
+    </div>
+
+    <table th:object="${submissions}" id="submissionsTable" border="1">
+
+        <!--<script src="http://code.jquery.com/jquery-1.11.3.js"></script>-->
+        <script th:type="'text/javascript'">
+            function SubForm (url, index){
+                $.ajax({
+                    url:url,
+                    type:'post',
+                    data:$('#gradeForm' + index).serialize(),
+                    success:function(){
+                        alert("Grade updated successfully");
+                    }
+                });
+                 location.reload();
+                $("#gradeDiv").load(" #gradeDiv>*");
+            }
+        </script>
+
+        <tr>
+
+            <td> <center><b>User</b></center> </td>
+            <td> <b>Assignment</b> </td>
+            <td> <center><b>Git Repo</b></center> </td>
+            <td> <b>Remark</b> </td>
+            <td> <b>Grade</b> </td>
+            <td sec:authorize="hasRole('ROLE_TEACHER')"> <b>New Grade</b> </td>
+            </b>
+        </tr>
+
+        <tr th:each="sub :${submissions}">
+
+
+
+            <td th:text="${sub.user.fullName}"></td>
+            <td th:text="${sub.assignment.name}"></td>
+            <td><a th:href="'' + ${sub.gitrepo}" target="_blank" th:text="${sub.gitrepo}"></a></td>
+            <td th:text="${sub.remark}"></td>
+            <div id="gradeDiv"><td th:text="${sub.grade}"></td></div>
+            <td sec:authorize="hasRole('ROLE_TEACHER')">
+
+
+                <form th:id="'gradeForm' + ${sub.idassignuser}" action='#' th:action="'/submission/' + ${sub.idassignuser}"method="post" target="hiddenFrame" th:target="hiddenFrame" >
+                    <input type="number" name="grade" id="grade" min="0" max="10" value="5"><br>
+                    <button type="button" th:onclick="'SubForm(\'/submission/' + ${sub.idassignuser} + '\', ' + ${sub.idassignuser} + ')'">Change</button>
+                    <!--<input type="submit" th:onclick="'SubForm(\'/submission/' + ${sub.idassignuser} + '\')'">-->
+                </form>
+            </td>
+
+
+        </tr>
+    </table>
+</div>
+
+
+<iframe name="hiddenFrame" width="0" height="0" border="0" style="display: none;"></iframe>
+</body>
+</html>

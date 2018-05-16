@@ -1,0 +1,300 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/default">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+</head>
+<body>
+<!--<p th:utext="${#SecurityContextHolder.getContext().getAuthentication().getName()}" />-->
+<div id="page" layout:fragment="content">
+
+<div>
+Hello
+    <font color="blue"><b>
+<span sec:authentication="name">
+    Bob
+</span>
+    </b></font>
+    . Here are the labs
+</div>
+
+    <div>
+        <form th:value="${#httpServletRequest.requestURI}" method="get">
+            <input th:name="keyword" th:id="keyword">
+            <input type="submit" value="search by keyword">
+        </form>
+    </div>
+
+    <table th:object="${laboratorys}" id="labTable" border="1">
+        <tr>
+            <td> No. </td>
+            <td> Date </td>
+            <td> Title </td>
+            <td> Curricula </td>
+            <td> Assignments </td>
+            <td> Attendance </td>
+            <td sec:authorize="hasRole('ROLE_TEACHER')">Edit Laboratory</td>
+            <td sec:authorize="hasRole('ROLE_TEACHER')">Delete Laboratory</td>
+        </tr>
+        <tr th:each="index : ${#numbers.sequence(0,(laboratorys.labs.size() - 1))}">
+            <td th:text="${laboratorys.labs[__${index}__].labNb}"></td>
+            <td  th:text="${laboratorys.labs[__${index}__].dateOfLab}"></td>
+            <td  th:text="${laboratorys.labs[__${index}__].title}"></td>
+            <td  style="max-width:600px; min-width:250px">
+                <details>
+                    <summary th:text="${laboratorys.labs[__${index}__].curricula}"></summary>
+                    <p th:utext="${laboratorys.labs[__${index}__].longDescription}"></p>
+                </details>
+            </td>
+            <td>
+                <table>
+                    <tr th:each="assign :${laboratorys.labs[__${index}__].assignments}">
+                        <td>
+                            <details>
+                                <summary th:text="${assign.name}"/>
+                                <a th:href="'/assignments/' + ${assign.idassignment}">LINK</a>
+                                <p th:text="${assign.deadline}"></p>
+                            </details>
+                        </td>
+                    </tr>
+                </table>
+
+                <div sec:authorize="hasRole('ROLE_TEACHER')">
+                    <!-- Trigger/Open The Modal -->
+                    <button th:id="'myBtn' + ${index}">New Assignment</button>
+
+                    <!-- The Modal -->
+                    <div th:id="'myModal' + ${index}" class="modal" th:with="labNumber=${laboratorys.labs[__${index}__].labNb}">
+
+                    <!-- Modal content -->
+                    <div th:class="'modal-content'" th:id="'modal-content' + ${index}">
+                    <span class="close">&times;</span>
+                    <form th:id="'formNewAssignment' + ${index}" action="#" th:action="'/assignments/'" th:object="${assignment}" method="post">
+                    <table>
+                    <tr>
+                    <td>Name: </td>
+                    <td><input type="text" th:field="*{name}" /></td>
+                    </tr>
+                    <tr>
+                    <td>Description: </td>
+                    <td><input type="text" th:field="*{longDescription}"/></td>
+                    </tr>
+                    <tr>
+                    <td>Deadline: </td>
+                    <td><input type="date" th:field="*{deadline}"/></td>
+                    </tr>
+                    <tr>
+                    <td>Lab No: </td>
+                    <td><input type="text" th:id="idlaboratory" th:name="idlaboratory" th:value="${laboratorys.labs[__${index}__].labNb}"/></td>
+                    </tr>
+
+                    </table>
+                    <p><input type="submit" value="Submit New Assignment" /> <input type="reset" value="Reset" /></p>
+                    </form>
+                    </div>
+
+                    </div>
+
+                    <script th:inline="javascript">
+                        // Get the modal
+                        var modal = document.getElementById('myModal' + [[${index}]]);
+                        var number = [[${index}]];
+
+                        // Get the button that opens the modal
+                        var btn = document.getElementById("myBtn" + [[${index}]]);
+
+                        // Get the <span> element that closes the modal
+                        var span = document.getElementsByClassName("close")[0];
+
+                        // When the user clicks the button, open the modal
+                        btn.onclick = function() {
+                          modal.style.display = "block";
+                        }
+
+                        // When the user clicks on <span> (x), close the modal
+                        span.onclick = function() {
+                           modal.style.display = "none";
+                        }
+
+
+                        // When the user clicks anywhere outside of the modal, close it
+                        window.onclick = function(event) {
+                            if (event.target == modal) {
+                               modal.style.display = "none";
+                            }
+                        }
+
+                        document.onkeydown = function(evt) {
+                          evt = evt || window.event;
+                          var isEscape = false;
+                          if ("key" in evt) {
+                              isEscape = (evt.key == "Escape" || evt.key == "Esc");
+                            } else {
+                                isEscape = (evt.keyCode == 27);
+                            }
+                            if (isEscape) {
+                                modal.style.display = "none";
+                            }
+                        };
+
+                    </script>
+
+                </div>
+            </td>
+
+            <td>
+                <a th:href="'/attendance?idlaboratory=' + ${laboratorys.labs[__${index}__].idlaboratory}">LINK</a>
+            </td>
+
+            <td sec:authorize="hasRole('ROLE_TEACHER')">
+
+            <script th:type="'text/javascript'">
+                function SubForm (url, index){
+                    $.ajax({
+                        url:url,
+                        type:'post',
+                        data:$('#editLabForm' + index).serialize(),
+                        success:function(){
+                            alert("Laboratory edited successfully");
+                        },
+                        error:function(XMLHttpRequest, textStatus, errorThrown){
+                            alert("PERMISSION DENIED");
+                        }
+                    });
+                    location.reload();
+                    $("#labTable").load(" #labTable>*");
+                }
+            </script>
+
+            <details>
+            <summary>Edit</summary>
+            <form th:id="'editLabForm'+${index}" action="#" th:action="'/laboratory/' + ${laboratorys.labs[__${index}__].idlaboratory}" th:object="${laboratorys.labs[__${index}__]}" method="post">
+            <table>
+                <input type="hidden" th:id="'idlaboratory'" th:name="'idlaboratory'" th:value="${laboratorys.labs[__${index}__].idlaboratory}">
+                <tr>
+                    <td>Lab Number: </td>
+                    <td><input type="text" th:id="'labNb'" th:name="'labNb'" th:value="${laboratorys.labs[__${index}__].labNb}"/></td>
+                </tr>
+                <tr>
+                    <td>Date: </td>
+                    <td><input type="date" th:id="'dateOfLab'" th:name="'dateOfLab'" th:value="${laboratorys.labs[__${index}__].dateOfLab}"/></td>
+                </tr>
+                <tr>
+                    <td>Title: </td>
+                    <td><input type="text" th:id="'title'" th:name="'title'" th:value="${laboratorys.labs[__${index}__].title}"/></td>
+                </tr>
+                <tr>
+                    <td>Curricula: </td>
+                    <td><input type="text" th:id="'curricula'" th:name="'curricula'" th:value="${laboratorys.labs[__${index}__].curricula}"/></td>
+                </tr>
+                <tr>
+                    <td>Description: </td>
+                    <td><input type="text" th:id="'longDescription'" th:name="'longDescription'" th:value="${laboratorys.labs[__${index}__].longDescription}"/></td>
+                </tr>
+
+            </table>
+            <button type="button" th:id="'buttonEdit' + ${index}" th:onclick="'SubForm(\'/laboratory/' + ${laboratorys.labs[__${index}__].idlaboratory} + '\', ' + ${index} + ')'">Change</button>
+            <p><input type="reset" value="Reset" /></p>
+            </form>
+            </details>
+            </td>
+            <td sec:authorize="hasRole('ROLE_TEACHER')">
+
+                <script th:type="'text/javascript'">
+                    var header = $("meta[name='_csrf_header']").attr("content");
+                    var token = $("meta[name='_csrf']").attr("content");
+
+
+
+                    function deleteLab (idLab){
+
+                        $(document).ajaxSend(function(e, xhr, options) {
+                            xhr.setRequestHeader(header, token);
+                        });
+
+                        if(confirm("Are you sure you wanna delete this Lab?")) {
+                            $.ajax({
+                                url:'laboratory/' + idLab,
+                                type:'DELETE',
+                                success:function(){
+                                    alert("Laboratory deleted successfully");
+                                }
+                            });
+                            location.reload();
+                            $("#labTable").load(" #labTable>*");
+                        } else {
+                            alert("ok u cool");
+                        }
+                    }
+                </script>
+
+                <button type="button" th:id="'deleteLabButton' + ${index}" th:onclick="'deleteLab(' + ${laboratorys.labs[__${index}__].idlaboratory} + ')'">DELETE</button>
+            </td>
+
+        </tr>
+    </table>
+<!--<select name="author" id="author">-->
+    <!--<option th:each="lab : ${laboratorys}" th:value="${lab.labNb}" th:text="${lab.title}"></option>-->
+<!--</select>-->
+
+    <div id="createTableDiv" sec:authorize="hasRole('ROLE_TEACHER')">
+
+    <h2>Create New Laboratory</h2>
+
+        <form th:id="'createNewLabForm'" action="#" th:action="'/laboratory/'" method="post">
+            <table>
+            <tr>
+                <td>Lab Number: </td>
+                <td><input type="text" th:id="'labNb'" th:name="'labNb'" th:value="2000"/></td>
+            </tr>
+            <tr>
+                <td>Date: </td>
+                <td><input type="date" th:id="'dateOfLab'" th:name="'dateOfLab'" th:value="2019-10-20"/></td>
+            </tr>
+            <tr>
+                <td>Title: </td>
+                <td><input type="text" th:id="'title'" th:name="'title'" th:value="a"/></td>
+            </tr>
+            <tr>
+                <td>Curricula: </td>
+                <td><input type="text" th:id="'curricula'" th:name="'curricula'" th:value="a"/></td>
+            </tr>
+            <tr>
+                <td>Description: </td>
+                <td><input type="text" th:id="'longDescription'" th:name="'longDescription'" th:value="a"/></td>
+            </tr>
+            </table>
+        </form>
+            <button id="submitCreateLab">Create Lab</button>
+
+
+            <script th:type="'text/javascript'">
+                document.getElementById('submitCreateLab').onclick = function() {
+                    $.ajax({
+                        url:'/laboratory',
+                        type:'post',
+                        data:$('#createNewLabForm').serialize(),
+                        success:function(){
+                            alert("Laboratory created successfully");
+                        }
+                    });
+
+                    location.reload();
+                    $("#createTableDiv").load(" #createTableDiv>*");
+                }
+            </script>
+
+
+
+
+
+
+    </div>
+
+</div>
+</body>
+</html>

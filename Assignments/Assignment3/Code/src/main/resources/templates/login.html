@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/default">
+<head>
+    <title>Spring Security Example </title>
+</head>
+<body>
+
+<div id="page" layout:fragment="content">
+
+<div th:if="${param.error}">
+    Invalid username or password.
+</div>
+<div th:if="${param.logout}">
+    You have been logged out.
+</div>
+<div th:if="${param.please}">
+    Please log in before proceeding.
+</div>
+
+<form th:action="@{/login}" method="post">
+    <table>
+        <tr>
+            <td>Email:</td>
+            <td><input type="text" name="username"/></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type="password" name="password"/></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Sign In"/></td>
+        </tr>
+    </table>
+</form>
+
+</div>
+</body>
+</html>

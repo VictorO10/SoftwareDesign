@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/default">
+
+<body>
+
+
+<div class="container" layout:fragment="content">
+    <h2>Welcome to the Software Design Laboratory application!</h2>
+
+    <p>
+        Are you a new Student who just received an activation token per e-mail?<br/>
+        <a href="/registerByStudent" th:href="@{/registerByStudent}" class="btn btn-large btn-success">Sign up</a>
+    </p>
+</div>
+
+</body>
+</html>

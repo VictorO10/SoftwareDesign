@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/default">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+</head>
+<body>
+
+<!--<p th:utext="${#SecurityContextHolder.getContext().getAuthentication().getName()}" />-->
+<div id="page" layout:fragment="content">
+<div>
+    Hello
+    <font color="blue"><b>
+        <span sec:authentication="name">
+            Bob
+        </span>
+    </b></font>
+. Here is the attendance.
+</div>
+
+    <table th:object="${attendances}" id="submissionsTable" border="1">
+
+        <!--<script src="http://code.jquery.com/jquery-1.11.3.js"></script>-->
+        <script th:type="'text/javascript'">
+            function SubForm (url, index){
+                $.ajax({
+                    url:url,
+                    type:'post',
+                    data:$('#gradeForm' + index).serialize(),
+                    success:function(){
+                        alert("Grade updated successfully");
+                    }
+                });
+                location.reload();
+                $("#gradeDiv").load(" #gradeDiv>*");
+            }
+        </script>
+
+        <tr>
+            <td> <center><b>User</b></center> </td>
+            <td> <b>Lab</b> </td>
+            <td> <center><b>Bonus Points</b></center> </td>
+            <td sec:authorize="hasRole('ROLE_TEACHER')"> <b>New Bonus</b> </td>
+            </b>
+        </tr>
+
+        <tr th:each="att :${attendances}">
+
+            <td th:text="${att.user.fullName}"></td>
+            <td th:text="${att.laboratory.title}"></td>
+            <td th:text="${att.bonusPoints}"></td>
+
+        </tr>
+    </table>
+
+    <div>
+        <h2>Search by user or laboratory:</h2>
+        <form th:action="${#httpServletRequest.requestURI}" method = "get">
+            User E-mail: <input type="text" name="email" th:value="${currentUser}"> <br>
+            Laboratory Id: <input type="text" name="idlaboratory"> <br>
+            <input type="submit" value="search">
+        </form>
+    </div>
+
+    <div sec:authorize="hasRole('ROLE_TEACHER')">
+        <h2>Add new Attendance:</h2>
+        <form th:object="${attendanceWEmailModel}" th:action="${#httpServletRequest.requestURI}" method = "post">
+            User E-mail: <input th:field="*{email}"> <br>
+            Laboratory Id: <input th:field="*{idlaboratory}"> <br>
+            <input type="submit" value="Submit attendance">
+        </form>
+    </div>
+</div>
+
+
+<iframe name="hiddenFrame" width="0" height="0" border="0" style="display: none;"></iframe>
+</body>
+</html>

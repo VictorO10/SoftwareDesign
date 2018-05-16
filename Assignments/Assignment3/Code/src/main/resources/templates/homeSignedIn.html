@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
+      layout:decorator="layouts/default">
+
+<body>
+
+
+<div class="container" layout:fragment="content">
+    <h2>Welcome to the Software Design Laboratory application!</h2>
+
+    <div>
+        Welcome back,
+        <font color="black"><b>
+            <span sec:authentication="name">
+            Bob
+            </span>
+        </b></font>
+        . From the menu at the top of the page you can view the laboratories and the assignments.
+    </div>
+</div>
+
+</body>
+</html>

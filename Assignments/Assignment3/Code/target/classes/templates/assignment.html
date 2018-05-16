@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/default">
+
+<body>
+
+<div id="page" layout:fragment="content">
+
+<table th:object="${assignment}" id="labTable" border="1">
+    <tr>
+        <td> ColDescription </td>
+        <td> ActualInfo </td>
+    </tr>
+
+    <tr>
+        <td> Name: </td>
+        <td th:text="${assignment.name}"></td>
+    </tr>
+
+    <tr>
+        <td> Description: </td>
+        <td th:utext="${assignment.longDescription}"></td>
+    </tr>
+
+    <tr>
+        <td> Deadline: </td>
+        <td th:text="${assignment.deadline}"></td>
+    </tr>
+    <!--<tr>-->
+        <!--<td> laboratoryId: </td>-->
+        <!--<td th:text="${assignment.idlaboratory}"></td>-->
+    <!--</tr>-->
+
+</table>
+
+<div sec:authorize="hasRole('ROLE_TEACHER')">
+
+    <h2>Edit Assignment</h2>
+    <form action="#" th:action="${#httpServletRequest.requestURI}" th:object="${assignment}" method="post">
+        <table>
+            <tr>
+                <td>Name: </td>
+                <td><input type="text" th:field="*{name}" /></td>
+            </tr>
+            <tr>
+                <td>Description: </td>
+                <td><input type="text" th:field="*{longDescription}" /></td>
+            </tr>
+            <tr>
+                <td>Deadline: </td>
+                <td><input type="date" th:field="*{deadline}" /></td>
+            </tr>
+
+
+        </table>
+        <p><input type="submit" value="Submit Edit" /> <input type="reset" value="Reset Edit" /></p>
+    </form>
+
+    <h2>View Submissions</h2>
+    <a th:href = "'/submission?assignmentid=' + ${assignment.idassignment}"><button type = "button" a href="/">View Submissions</button></a>
+</div>
+
+<div sec:authorize="hasRole('ROLE_TEACHER')">
+
+    <script>
+        var header = $("meta[name='_csrf_header']").attr("content");
+        var token = $("meta[name='_csrf']").attr("content");
+
+        function deleteAssignment (url){
+            $(document).ajaxSend(function(e, xhr, options) {
+                xhr.setRequestHeader(header, token);
+            });
+
+            if(confirm("Are you sure you wanna delete this Assignment? This operation can't be reversed!")) {
+                $.ajax({
+                    url:url,
+                    type:'DELETE',
+                    success:function(){
+                        alert("Assignment deleted successfully");
+                    }
+                });
+                $(location).attr('href', '/laboratory')
+            } else {
+                alert("ok u cool");
+            }
+        }
+    </script>
+
+
+    <h2>Delete this Assignment</h2>
+    <button type="button" id="deleteAssignButton" th:onclick="'deleteAssignment(\'' + ${#httpServletRequest.requestURI} + '\')'">DELETE</button>
+</div>
+
+<div sec:authorize="hasRole('ROLE_STUDENT')">
+    <h2>Submit Solution</h2>
+    <form action="#" th:action="'/submission'" th:object="${submissionModel}" method="post">
+        <table>
+            <input type="hidden" th:id="idassignment" th:name="idassignment" th:value="${assignment.idassignment}">
+            <tr>
+                <td>Git link: </td>
+                <td><input type="text" th:field="*{gitrepo}" /></td>
+            </tr>
+            <tr>
+                <td>Remark: </td>
+                <td><input type="text" th:field="*{remark}" /></td>
+            </tr>
+
+
+        </table>
+        <p><input type="submit" value="Submit Submission" /> <input type="reset" value="Reset" /></p>
+    </form>
+</div>
+
+
+
+</div>
+</body>
+</html>

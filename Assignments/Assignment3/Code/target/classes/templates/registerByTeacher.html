@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/default">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+</head>
+<body>
+
+<!--<p th:utext="${#SecurityContextHolder.getContext().getAuthentication().getName()}" />-->
+<div id="page" layout:fragment="content" sec:authorize="hasRole('ROLE_TEACHER')">
+    <div>
+        Hello
+        <font color="blue"><b>
+        <span sec:authentication="name">
+            Bob
+        </span>
+        </b></font>
+        . Here you can create accounts for your students.
+    </div>
+
+    <div>
+        [[${topMessage}]]
+    </div>
+
+    <form th:object="${userModel}" th:action="${#httpServletRequest.requestURI}" method="post">
+        <table>
+            <tr>
+                <td>E-mail: </td>
+                <td><input type="text" th:field="*{email}"></td>
+            </tr>
+            <tr>
+                <td>Full Name: </td>
+                <td><input type="text" th:field="*{fullName}"></td>
+            </tr>
+            <tr>
+                <td>Group: </td>
+                <td><input type="text" th:field="*{groupName}"></td>
+            </tr>
+            <tr>
+                <td>Hobby: </td>
+                <td><input type="text" th:field="*{hobby}"></td>
+            </tr>
+        </table>
+        <input type="submit" value="Submit Edit"/>
+    </form>
+
+</div>
+
+
+<iframe name="hiddenFrame" width="0" height="0" border="0" style="display: none;"></iframe>
+</body>
+</html>
