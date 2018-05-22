@@ -1,0 +1,99 @@
+.topImage {
+    max-height: 300px;
+    width: auto;
+    position: relative;          /* where the next element will be automatically positioned */
+    display: inline-block;       /* causes element width to shrink to fit content */
+    left: 50%;                   /* moves left side of image/element to center of parent element */
+    transform: translate(-50%);  /* centers image/element on "left: 50%" position */
+}
+
+body{
+    padding-top:22px;
+}
+
+.tableTitle{
+    background-color: steelblue;
+    color: whitesmoke;
+
+    font-size: 30px;
+    text-align: center;
+
+    padding: 2px;
+    margin: 0 auto;
+
+    height: 40px;
+    line-height: 34px;
+}
+
+
+.brandEnum{
+    padding-top:25px;
+    position:relative;
+}
+
+.brandEnumInside{
+    left: 50%;
+    position: relative;
+    max-width: 500px;
+    transform: translate(-50%);  /* centers image/element on "left: 50%" position */
+}
+
+table,th,td{
+    border: 1px solid cornflowerblue;
+    border-collapse: separate;
+}
+
+.descriptionColumn{
+    height: 100px;
+}
+
+.BigWriting{
+}
+
+.longLine{
+    position: relative;
+    background-color: cornflowerblue;
+    height: 20px;
+    width:100%;
+}
+
+
+
+/*OVERWRITE BOOTSTRAP*/
+.navbar{
+    border-radius: 0;
+    border: 0;
+    background-color: steelblue;
+    background-image: none;
+}
+/*nav links*/
+
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav > li > a{
+    color: white;
+    font-weight:normal;
+    text-shadow: none;
+}
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .active > a{
+    background-color: blue;
+    background-image: none;
+    box-shadow: none;
+}
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .active > a:hover{
+    background-color: blue !important;
+    background-image: none;
+}
+/*nav  dropdowns*/
+.navbar-nav > li > .dropdown-menu{
+    box-shadow: none;
+    padding:0;
+    border-top:0;
+}
+.dropdown-menu > li > a{
+    padding: 10px 0 10px 10px;
+    font-size:15px;
+}
+.dropdown-menu > li > a:hover{
+    background-color: blue;
+    color: white;
+    background-image: none;
+}

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/default" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<body>
+
+<div id="page" layout:fragment="content">
+
+    <div class="brandEnum">
+
+        <div class="brandEnumInside">
+        <table class="enumTable" id="enumBrandTable" align="center">
+            <tr>
+                <td colspan="5"><h1 class="tableTitle">Brands</h1></td>
+            </tr>
+            <tr>
+                <td>ID</td>
+                <td>NAME</td>
+                <td>DESCRIPTION</td>
+                <td>DELETE</td>
+                <td style="text-align: center">EDIT</td>
+            </tr>
+            <tr th:each="brand,iter: ${brands}">
+                <td th:text="${brand.brandId}"></td>
+                <td th:text="${brand.name}"></td>
+                <td>
+                    <details>
+                        <summary th:text="'Details'"></summary>
+                        <p th:utext="${brand.description}"></p>
+                    </details>
+                </td>
+                <td>
+                    <script>
+                        function deleteBrand (idBrand){
+                            if(confirm("Are you sure you wanna delete this Brand?")) {
+                                $.ajax({
+                                    url:'brand/' + idBrand,
+                                    type:'DELETE',
+                                    success:function(){
+                                        alert("Brand deleted successfully");
+                                    }
+                                });
+                                location.reload();
+                                $("#enumBrandTable").load(" #enumBrandTable>*");
+                            } else {
+                                alert("ok u cool");
+                            }
+                        }
+                    </script>
+
+                    <button type="button" th:onclick="'deleteBrand(' + ${brand.brandId} + ')'">DELETE</button>
+
+                </td>
+                <td>
+                    <script>
+                        function editBrand (index){
+                            $.ajax({
+                                url:'brand/' + index,
+                                type:'put',
+                                data:$('#editBrand' + index).serialize(),
+                                success:function(){
+                                    alert("Brand edited successfully");
+                                },
+                                error:function(XMLHttpRequest, textStatus, errorThrown){
+                                    alert("PERMISSION DENIED");
+                                }
+                            });
+                            location.reload();
+                            $("#enumBrandTable").load(" #enumBrandTable>*");
+                        }
+                    </script>
+
+                    <details>
+                        <summary>Edit</summary>
+
+                        <form th:id="'editBrand' + ${brand.brandId}" th:object="${brandModel}">
+                            <table>
+                                <input type="hidden" th:id="'brandId'" th:name="'brandId'" th:value="${brand.brandId}">
+                                <tr>
+                                    <td>Brand Name: </td>
+                                    <td><input type="text" th:id="'name'" th:name="'name'" th:value="${brand.name}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Brand Description:<br>(Accepts HTML) </td>
+                                    <td><textarea type="textarea" th:id="'description'" th:name="'description'" class="descriptionColumn"><p th:text="${brand.description}"></p></textarea></td>
+                                </tr>
+                            </table>
+                        </form>
+                        <button type="button" th:onclick="'editBrand(' + ${brand.brandId} + ')'">Edit</button>
+
+                    </details>
+                </td>
+            </tr>
+        </table>
+        </div>
+    </div>
+    <div class="brandEnum">
+
+        <div class="brandEnumInside">
+        <script>
+
+            function SaveForm(url) {
+
+                $.ajax({
+                    url:url,
+                    type:'post',
+                    data:$('#saveBrandForm').serialize(),
+                    success:function(){
+                        alert("Added new Brand!");
+                    },
+                    error:function(XMLHttpRequest, textStatus, errorThrown){
+                        alert("PERMISSION DENIED");
+                    }
+                });
+                location.reload();
+                $("#enumBrandTable").load(" #enumBrandTable>*");
+            }
+        </script>
+
+        <form th:id="saveBrandForm" th:object="${brandModel}" method="post">
+            <table align="center">
+                <tr>
+                    <td colspan="2"><h1 class="tableTitle">New Brand</h1></td>
+                </tr>
+                <tr>
+                    <td>Brand Name: </td>
+                    <td><input type="text" th:field="*{name}"></td>
+                </tr>
+                <tr>
+                    <td>Brand Description:<br>(Accepts HTML) </td>
+                    <td><textarea type="textarea" th:field="*{description}" class="descriptionColumn"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <button type="button"  th:onclick="'SaveForm(' + '\'' + ${#httpServletRequest.requestURI} + '\'' + ')'">Submit</button>
+                    </td>
+                </tr>
+            </table>
+
+        </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
