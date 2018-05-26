@@ -1,6 +1,9 @@
 package com.winterShop.repository.model.product;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.winterShop.repository.model.inventory.Inventory;
 import com.winterShop.repository.model.order.OrderItem;
 
@@ -22,11 +25,14 @@ public class Product {
 
     protected Long price;
 
+    @Column(length = 50000)
+    protected String description;
+
     protected String name;
 
     @ManyToOne
     @JoinColumn(name="brand_id", nullable = true)
-    @JsonBackReference
+ //   @JsonManagedReference
     protected Brand brand;
 
     @ManyToOne
@@ -35,6 +41,7 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name="category_id", nullable = true)
+//    @JsonManagedReference
     protected Category category;
 
     @OneToMany(mappedBy = "product")
@@ -97,5 +104,29 @@ public class Product {
 
     public void setProductWCharsSet(Set<ProductWChars> productWCharsSet) {
         this.productWCharsSet = productWCharsSet;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        System.out.println("TO STRING FROM Product normal");
+
+        return "\n\nbrandDTO to JSON\n\n";
+
+//        try {
+//            return objectMapper.writeValueAsString(this);
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//            return "brandDTO to jackson error\n";
+//        }
     }
 }

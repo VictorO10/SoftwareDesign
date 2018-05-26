@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/default" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<body>
+
+<div id="page" layout:fragment="content">
+
+    <div class="categoryEnum">
+
+        <div class="categoryEnumInside">
+            <table class="enumTable" id="enumCategoryTable" align="center">
+                <tr>
+                    <td colspan="5"><h1 class="tableTitle">Categorys</h1></td>
+                </tr>
+                <tr>
+                    <td>ID</td>
+                    <td>CATEGORY</td>
+                    <td>DELETE</td>
+                    <td style="text-align: center">EDIT</td>
+                </tr>
+                <tr th:each="category,iter: ${categorys}">
+                    <td th:text="${category.categoryId}"></td>
+                    <td th:text="${category.category}"></td>
+                    <td>
+                        <script>
+                            function deleteCategory (idCategory){
+                                if(confirm("Are you sure you wanna delete this Category?")) {
+                                    $.ajax({
+                                        url:'category/' + idCategory,
+                                        type:'DELETE',
+                                        success:function(){
+                                            alert("Category deleted successfully");
+                                        }
+                                    });
+                                    location.reload();
+                                    $("#enumCategoryTable").load(" #enumCategoryTable>*");
+                                } else {
+                                    alert("ok u cool");
+                                }
+                            }
+                        </script>
+
+                        <button type="button" th:onclick="'deleteCategory(' + ${category.categoryId} + ')'">DELETE</button>
+
+                    </td>
+                    <td>
+                        <script>
+                            function editCategory (index){
+                                $.ajax({
+                                    url:'category/' + index,
+                                    type:'put',
+                                    data:$('#editCategory' + index).serialize(),
+                                    success:function(){
+                                        alert("Category edited successfully");
+                                    },
+                                    error:function(XMLHttpRequest, textStatus, errorThrown){
+                                        alert("PERMISSION DENIED");
+                                    }
+                                });
+                                location.reload();
+                                $("#enumCategoryTable").load(" #enumCategoryTable>*");
+                            }
+                        </script>
+
+                        <details>
+                            <summary>Edit</summary>
+
+                            <form th:id="'editCategory' + ${category.categoryId}" th:object="${categoryModel}">
+                                <table>
+                                    <input type="hidden" th:id="'categoryId'" th:name="'categoryId'" th:value="${category.categoryId}">
+                                    <tr>
+                                        <td>Category Category: </td>
+                                        <td><input type="text" th:id="'category'" th:name="'category'" th:value="${category.category}"></td>
+                                    </tr>
+                                </table>
+                            </form>
+                            <button type="button" th:onclick="'editCategory(' + ${category.categoryId} + ')'">Edit</button>
+
+                        </details>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="categoryEnum">
+
+        <div class="categoryEnumInside">
+            <script>
+
+                function SaveForm(url) {
+
+                    $.ajax({
+                        url:url,
+                        type:'post',
+                        data:$('#saveCategoryForm').serialize(),
+                        success:function(){
+                            alert("Added new Category!");
+                        },
+                        error:function(XMLHttpRequest, textStatus, errorThrown){
+                            alert("PERMISSION DENIED");
+                        }
+                    });
+                    location.reload();
+                    $("#enumCategoryTable").load(" #enumCategoryTable>*");
+                }
+            </script>
+
+            <form th:id="saveCategoryForm" th:object="${categoryModel}" method="post">
+                <table align="center">
+                    <tr>
+                        <td colspan="2"><h1 class="tableTitle">New Category</h1></td>
+                    </tr>
+                    <tr>
+                        <td>Category Category: </td>
+                        <td><input type="text" th:field="*{category}"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <button type="button"  th:onclick="'SaveForm(' + '\'' + ${#httpServletRequest.requestURI} + '\'' + ')'">Submit</button>
+                        </td>
+                    </tr>
+                </table>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

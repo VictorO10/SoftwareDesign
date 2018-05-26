@@ -1,5 +1,9 @@
 package com.winterShop.service.model.product;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.Set;
 
 
@@ -9,6 +13,7 @@ public class TargetGroupDTO {
 
     private String groupName;
 
+    @JsonBackReference
     private Set<ProductDTO> productDTOS;
 
 
@@ -31,11 +36,24 @@ public class TargetGroupDTO {
         this.groupName = groupName;
     }
 
+    @JsonBackReference
     public Set<ProductDTO> getProductDTOS() {
         return productDTOS;
     }
 
     public void setProductDTOS(Set<ProductDTO> productDTOS) {
         this.productDTOS = productDTOS;
+    }
+
+    @Override
+    public String toString() {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            return objectMapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "targetGroupDTO to jackson error\n";
+        }
     }
 }

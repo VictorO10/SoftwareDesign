@@ -1,4 +1,4 @@
-package com.winterShop.service.impl;
+package com.winterShop.service.impl.product;
 
 import com.winterShop.repository.model.product.Brand;
 import com.winterShop.service.contracts.product.BrandService;
@@ -6,6 +6,7 @@ import com.winterShop.service.model.product.BrandDTO;
 import com.winterShop.repository.contracts.product.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,20 +22,22 @@ public class BrandServiceImpl implements BrandService {
     private ModelMapper modelMapper;
 
     public BrandServiceImpl() {
+
         modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
     }
 
     @Override
     public List<BrandDTO> getAll() {
         List<Brand> brandList = brandDAO.findAll();
 
-        System.out.println(brandList);
+//        System.out.println(brandList);
 
         java.lang.reflect.Type targetListType = new TypeToken<List<BrandDTO>>() {}.getType();
 
         List<BrandDTO> brandDTOList = modelMapper.map(brandList, targetListType);
 
-        System.out.println(brandDTOList);
+//        System.out.println(brandDTOList);
 
         return brandDTOList;
     }

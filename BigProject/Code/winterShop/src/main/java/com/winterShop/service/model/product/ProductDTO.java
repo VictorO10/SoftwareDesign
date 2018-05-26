@@ -1,11 +1,17 @@
 package com.winterShop.service.model.product;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.Serializable;
+import java.util.Map;
 import java.util.Set;
 
 
-public class ProductDTO {
+public class ProductDTO implements Serializable {
 
     protected Long productId;
 
@@ -13,14 +19,22 @@ public class ProductDTO {
 
     protected String name;
 
-    @JsonBackReference
+    protected String description;
+
+   // @JsonManagedReference
     protected BrandDTO brandDTO;
 
+  //  @JsonManagedReference
     protected TargetGroupDTO targetGroupDTO;
 
+  //  @JsonManagedReference
     protected CategoryDTO categoryDTO;
 
     protected Set<ProductWCharsDTO> productWCharsDTOSet;
+
+
+
+
 
     public ProductDTO() {
     }
@@ -49,6 +63,7 @@ public class ProductDTO {
         this.name = name;
     }
 
+   // @JsonManagedReference
     public BrandDTO getBrandDTO() {
         return brandDTO;
     }
@@ -57,6 +72,7 @@ public class ProductDTO {
         this.brandDTO = brandDTO;
     }
 
+   // @JsonManagedReference
     public TargetGroupDTO getTargetGroupDTO() {
         return targetGroupDTO;
     }
@@ -65,6 +81,7 @@ public class ProductDTO {
         this.targetGroupDTO = targetGroupDTO;
     }
 
+   // @JsonManagedReference
     public CategoryDTO getCategoryDTO() {
         return categoryDTO;
     }
@@ -79,5 +96,25 @@ public class ProductDTO {
 
     public void setProductWCharsDTOSet(Set<ProductWCharsDTO> productWCharsDTOSet) {
         this.productWCharsDTOSet = productWCharsDTOSet;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        System.out.println("TO STRING FROM ProductDTO");
+        try {
+            return objectMapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+            return "productDTO to jackson error\n";
+        }
     }
 }

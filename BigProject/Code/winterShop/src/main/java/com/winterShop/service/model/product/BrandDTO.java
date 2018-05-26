@@ -1,5 +1,7 @@
 package com.winterShop.service.model.product;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -14,6 +16,7 @@ public class BrandDTO {
 
     private String description;
 
+    @JsonIgnore
     private Set<ProductDTO> productDTOS;
 
     public BrandDTO() {
@@ -50,11 +53,12 @@ public class BrandDTO {
     public void setName(String name) {
         this.name = name;
     }
-
+    
+    @JsonIgnore
     public Set<ProductDTO> getProduct() {
         return productDTOS;
     }
-
+    @JsonIgnore
     public void setProduct(Set<ProductDTO> productDTO) {
         this.productDTOS = productDTO;
     }
@@ -63,6 +67,8 @@ public class BrandDTO {
     public String toString() {
         ObjectMapper objectMapper = new ObjectMapper();
 
+
+//        return "\n\nbrandDTO to JSON \n\n";
         try {
             return objectMapper.writeValueAsString(this);
         } catch (JsonProcessingException e) {

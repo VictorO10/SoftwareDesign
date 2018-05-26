@@ -24,7 +24,7 @@ public class BrandController {
 
         model.addAttribute("brands", brands);
 
-        System.out.println(brands);
+//        System.out.println(brands);
 
         return "product/brand";
     }

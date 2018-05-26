@@ -21,6 +21,12 @@
                     <li th:classappend="${module == 'Brands' ? 'active' : ''}">
                         <a href="#" th:href="@{/brand}">Brands</a>
                     </li>
+                    <li th:classappend="${module == 'Products' ? 'active' : ''}">
+                        <a href="#" th:href="@{/product}">Products</a>
+                    </li>
+                    <li th:classappend="${module == 'Categories' ? 'active' : ''}">
+                        <a href="#" th:href="@{/category}">Category</a>
+                    </li>
                     <li th:classappend="${module == 'Snowboards' ? 'active' : ''}">
                         <a href="#" th:href="@{/snowboard}">Snowboards</a>
                     </li>
@@ -29,9 +35,7 @@
                         <a href="#" th:href="@{/snowboardBoots}">Snowboard Boots</a>
                     </li>
 
-                    <li th:classappend="${module == 'attendance' ? 'active' : ''}">
-                        <a href="#" th:href="@{/attendance}">Attendance</a>
-                    </li>
+
 
                 </ul>
                 <!--<ul class="nav navbar-nav navbar-right">-->

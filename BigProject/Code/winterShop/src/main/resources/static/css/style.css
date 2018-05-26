@@ -25,6 +25,9 @@ body{
     line-height: 34px;
 }
 
+.readOnlyForm{
+    cursor: not-allowed;
+}
 
 .brandEnum{
     padding-top:25px;
@@ -32,6 +35,42 @@ body{
 }
 
 .brandEnumInside{
+    left: 50%;
+    position: relative;
+    max-width: 500px;
+    transform: translate(-50%);  /* centers image/element on "left: 50%" position */
+}
+
+.productEnum{
+    padding-top:25px;
+    position:relative;
+}
+
+.productEnumInside{
+    left: 50%;
+    position: relative;
+    max-width: 1000px;
+    transform: translate(-50%);  /* centers image/element on "left: 50%" position */
+}
+
+.categoryEnum{
+    padding-top:25px;
+    position:relative;
+}
+
+.categoryEnumInside{
+    left: 50%;
+    position: relative;
+    max-width: 500px;
+    transform: translate(-50%);  /* centers image/element on "left: 50%" position */
+}
+
+.snowboardBaseEnum{
+    padding-top:25px;
+    position:relative;
+}
+
+.snowboardBaseEnumInside{
     left: 50%;
     position: relative;
     max-width: 500px;

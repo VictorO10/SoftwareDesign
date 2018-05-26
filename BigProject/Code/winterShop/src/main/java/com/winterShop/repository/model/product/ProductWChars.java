@@ -40,6 +40,64 @@ public class ProductWChars {
     @OneToMany(mappedBy = "productWChars")
     protected Set<OrderItem> orderItemSet;
 
+    private String image;
+
     public ProductWChars() {
+    }
+
+    public Long getProductWCharsId() {
+        return productWCharsId;
+    }
+
+    public void setProductWCharsId(Long productWCharsId) {
+        this.productWCharsId = productWCharsId;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public SnowboardCharacteristics getSnowboardCharacteristics() {
+        return snowboardCharacteristics;
+    }
+
+    public void setSnowboardCharacteristics(SnowboardCharacteristics snowboardCharacteristics) {
+        this.snowboardCharacteristics = snowboardCharacteristics;
+    }
+
+    public SnowboardBootsCharacteristics getSnowboardBootsCharacteristics() {
+        return snowboardBootsCharacteristics;
+    }
+
+    public void setSnowboardBootsCharacteristics(SnowboardBootsCharacteristics snowboardBootsCharacteristics) {
+        this.snowboardBootsCharacteristics = snowboardBootsCharacteristics;
+    }
+
+    public Set<Inventory> getInventorySet() {
+        return inventorySet;
+    }
+
+    public void setInventorySet(Set<Inventory> inventorySet) {
+        this.inventorySet = inventorySet;
+    }
+
+    public Set<OrderItem> getOrderItemSet() {
+        return orderItemSet;
+    }
+
+    public void setOrderItemSet(Set<OrderItem> orderItemSet) {
+        this.orderItemSet = orderItemSet;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

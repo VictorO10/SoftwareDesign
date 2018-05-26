@@ -1,5 +1,7 @@
 package com.winterShop.repository.model.product;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -13,6 +15,7 @@ public class TargetGroup {
     private String groupName;
 
     @OneToMany(mappedBy = "targetGroup")
+    @JsonBackReference
     private Set<Product> products;
 
 

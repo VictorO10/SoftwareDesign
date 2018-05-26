@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/default" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<body>
+
+<div id="page" layout:fragment="content">
+
+    <!--<div class="form-group blu-margin">-->
+        <!--<select class="form-control"  id="dropOperator">-->
+            <!--<option value="0" th:text="'select category'" ></option>-->
+            <!--<option th:each="category : ${categorys}" th:value="${category.categoryId}" th:text="${category.category}"></option>-->
+        <!--</select>-->
+    <!--</div>-->
+
+    <script>
+        function objectifyForm(form) {//serialize data function
+
+            var formArray = form.serializeArray();
+
+            var returnArray = {};
+            for (var i = 0; i < formArray.length; i++){
+                returnArray[formArray[i]['name']] = formArray[i]['value'];
+            }
+
+            console.log('hey' + returnArray['categoryDTO']);
+            returnArray['categoryDTO'] = JSON.parse(returnArray['categoryDTO']);
+            console.log('hey' + returnArray['brandDTO']);
+            returnArray['brandDTO'] = JSON.parse(returnArray['brandDTO']);
+            console.log('hey' + returnArray['targetGroupDTO']);
+            returnArray['targetGroupDTO'] = JSON.parse(returnArray['targetGroupDTO']);
+            return returnArray;
+        }
+
+        function formToJSON(form) {
+            return JSON.stringify(objectifyForm(form));
+        }
+    </script>
+
+    <div class="productEnum">
+
+        <div class="productEnumInside">
+            <table class="enumTable" id="enumProductTable" align="center">
+                <tr>
+                    <td colspan="10"><h1 class="tableTitle">Products</h1></td>
+                </tr>
+                <tr>
+                    <td>ID</td>
+                    <td>NAME</td>
+                    <td>DESCRIPTION</td>
+                    <td>PRICE</td>
+                    <td>CATEGORY</td>
+                    <td>BRAND</td>
+                    <td>TARGET GROUP</td>
+                    <td>DELETE</td>
+                    <td style="text-align: center">EDIT</td>
+                </tr>
+                <tr th:each="product,iter: ${products}">
+                    <td th:text="${product.productId}"></td>
+                    <td th:text="${product.name}"></td>
+                    <td>
+                        <details>
+                            <summary th:text="'Details'"></summary>
+                            <p th:utext="${product.description}"></p>
+                        </details>
+                    </td>
+                    <td th:text="${product.price}"></td>
+                    <td th:text="${product.categoryDTO != null ? product.categoryDTO.category : 'NOT FOUND'}"></td>
+                    <td th:text="${product.brandDTO != null ? product.brandDTO.name : 'NOT FOUND'}"></td>
+                    <td th:text="${product.targetGroupDTO != null ? product.targetGroupDTO.groupName : 'NOT FOUND'}"></td>
+                    <td>
+                        <script>
+                            function deleteProduct (idProduct){
+                                if(confirm("Are you sure you wanna delete this Product?")) {
+                                    $.ajax({
+                                        url:'product/' + idProduct,
+                                        type:'DELETE',
+                                        success:function(){
+                                            alert("Product deleted successfully");
+                                        }
+                                    });
+                                    location.reload();
+                                    $("#enumProductTable").load(" #enumProductTable>*");
+                                } else {
+                                    alert("ok u cool");
+                                }
+                            }
+                        </script>
+
+                        <button type="button" th:onclick="'deleteProduct(' + ${product.productId} + ')'">DELETE</button>
+
+                    </td>
+                    <td>
+                        <script>
+                            function editProduct (index){
+
+                                var form = $('#editProduct' + index);
+                                var data = formToJSON(form);
+
+                                $.ajax({
+                                    url:'product/',
+                                    type:'put',
+                                    contentType: "application/json; charset=utf-8",
+                                    data:data,
+                                    success:function(){
+                                        alert("Product edited successfully");
+                                    },
+                                    error:function(XMLHttpRequest, textStatus, errorThrown){
+                                        alert("PERMISSION DENIED");
+                                    }
+                                });
+                                 location.reload();
+                                $("#enumProductTable").load(" #productEnumInside");
+                            }
+                        </script>
+
+                        <details>
+                            <summary>Edit</summary>
+
+                            <form th:id="'editProduct' + ${product.productId}" th:object="${productModel}">
+                                <table>
+                                    <input type="hidden" th:id="'productId'" th:name="'productId'" th:value="${product.productId}">
+                                    <tr>
+                                        <td>Product Name: </td>
+                                        <td><input type="text" th:id="'name'" th:name="'name'" th:value="${product.name}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Product Description:<br>(Accepts HTML) </td>
+                                        <td><textarea type="textarea" th:id="'description'" th:name="'description'" class="descriptionColumn"><p th:text="${product.description}"></p></textarea></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Product Price: </td>
+                                        <td><input type="text" th:id="'price'" th:name="'price'" th:value="${product.price}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Category: </td>
+                                        <td>
+                                            <select class="form-control" th:id="categoryDTO" th:name="categoryDTO">
+                                                <option th:each="category : ${categorys}"
+                                                        th:value="${category}"
+                                                        th:text="${category.category}"
+                                                        th:selected="${category.categoryId == product.categoryDTO?.categoryId}"
+                                                >Wireframe</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Brand: </td>
+                                        <td>
+                                            <select class="form-control" th:id="brandDTO" th:name="brandDTO">
+                                                <option th:each="brand : ${brands}"
+                                                        th:value="${brand}"
+                                                        th:text="${brand.name}"
+                                                        th:selected="${brand.brandId == product.brandDTO?.brandId}"
+                                                >Wireframe</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Target Group: </td>
+                                        <td>
+                                            <select class="form-control" th:id="targetGroupDTO" th:name="targetGroupDTO">
+                                                <option th:each="targetGroup : ${targetGroups}"
+                                                        th:value="${targetGroup}"
+                                                        th:text="${targetGroup.groupName}"
+                                                        th:selected="${targetGroup.targetGroupId == product.targetGroupDTO?.targetGroupId}"
+                                                >Wireframe</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                            <button type="button" th:onclick="'editProduct(' + ${product.productId} + ')'">Edit</button>
+
+                        </details>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="productEnum">
+
+        <div class="productEnumInside">
+            <script>
+
+                function SaveForm(url) {
+
+                    var form = $('#saveProductForm');
+
+                    var data = formToJSON(form);
+
+                    $.ajax({
+                        url:url,
+                        type:'post',
+                        contentType: "application/json; charset=utf-8",
+                        data:data,
+                        dataType:'json',
+                        success:function(){
+                            alert("Added new Product!");
+                        },
+                        error:function(XMLHttpRequest, textStatus, errorThrown){
+                            alert(errorThrown.toString());
+                            alert("PERMISSION DENIED");
+                        }
+                    });
+                    location.reload();
+                    $("#enumProductTable").load(" #enumProductTable>*");
+                }
+            </script>
+
+            <form th:id="saveProductForm" th:object="${productModel}"  th:action="'/product'">
+                <table align="center">
+                    <tr>
+                        <td colspan="2"><h1 class="tableTitle">New Product</h1></td>
+                    </tr>
+                    <tr>
+                        <td>Product Name: </td>
+                        <td><input type="text" th:field="*{name}"></td>
+                    </tr>
+                    <tr>
+                        <td>Product Description:<br>(Accepts HTML) </td>
+                        <td><textarea type="textarea" th:field="*{description}" class="descriptionColumn"/></td>
+                    </tr>
+                    <tr>
+                        <td>Product Price: </td>
+                        <td><input type="text" th:field="*{price}"></td>
+                    </tr>
+                    <tr>
+                        <td>Category: </td>
+                        <td>
+                            <select class="form-control" th:field="*{categoryDTO}">
+                                <option th:each="category : ${categorys}"
+                                        th:value="${category}"
+                                        th:text="${category.category}">Wireframe</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Brand: </td>
+                        <td>
+                            <select class="form-control" th:field="*{brandDTO}">
+                                <option th:each="brand : ${brands}"
+                                        th:value="${brand}"
+                                        th:text="${brand.name}">Wireframe</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>TargetGroup: </td>
+                        <td>
+                            <select class="form-control" th:field="*{targetGroupDTO}">
+                                <option th:each="targetGroup : ${targetGroups}"
+                                        th:value="${targetGroup}"
+                                        th:text="${targetGroup.groupName}">Wireframe</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <button type="button"  th:onclick="'SaveForm(' + '\'' + ${#httpServletRequest.requestURI} + '\'' + ')'">Submit</button>
+                        </td>
+                    </tr>
+                </table>
+                <input type="submit" value="New Product">
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

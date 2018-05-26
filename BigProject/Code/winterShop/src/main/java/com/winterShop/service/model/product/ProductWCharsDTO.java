@@ -18,11 +18,68 @@ public class ProductWCharsDTO {
 
     private SnowboardBootsCharacteristicsDTO snowboardBootsCharacteristicsDTO;
 
-
     protected Set<InventoryDTO> inventoryDTOSet;
 
     protected Set<OrderItemDTO> orderItemDTOSet;
 
+    private String image;
+
     public ProductWCharsDTO() {
+    }
+
+    public Long getProductWCharsId() {
+        return productWCharsId;
+    }
+
+    public void setProductWCharsId(Long productWCharsId) {
+        this.productWCharsId = productWCharsId;
+    }
+
+    public ProductDTO getProductDTO() {
+        return productDTO;
+    }
+
+    public void setProductDTO(ProductDTO productDTO) {
+        this.productDTO = productDTO;
+    }
+
+    public SnowboardCharacteristicsDTO getSnowboardCharacteristicsDTO() {
+        return snowboardCharacteristicsDTO;
+    }
+
+    public void setSnowboardCharacteristicsDTO(SnowboardCharacteristicsDTO snowboardCharacteristicsDTO) {
+        this.snowboardCharacteristicsDTO = snowboardCharacteristicsDTO;
+    }
+
+    public SnowboardBootsCharacteristicsDTO getSnowboardBootsCharacteristicsDTO() {
+        return snowboardBootsCharacteristicsDTO;
+    }
+
+    public void setSnowboardBootsCharacteristicsDTO(SnowboardBootsCharacteristicsDTO snowboardBootsCharacteristicsDTO) {
+        this.snowboardBootsCharacteristicsDTO = snowboardBootsCharacteristicsDTO;
+    }
+
+    public Set<InventoryDTO> getInventoryDTOSet() {
+        return inventoryDTOSet;
+    }
+
+    public void setInventoryDTOSet(Set<InventoryDTO> inventoryDTOSet) {
+        this.inventoryDTOSet = inventoryDTOSet;
+    }
+
+    public Set<OrderItemDTO> getOrderItemDTOSet() {
+        return orderItemDTOSet;
+    }
+
+    public void setOrderItemDTOSet(Set<OrderItemDTO> orderItemDTOSet) {
+        this.orderItemDTOSet = orderItemDTOSet;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

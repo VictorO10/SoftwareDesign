@@ -1,5 +1,7 @@
 package com.winterShop.repository.model.product;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -23,6 +25,7 @@ public class Brand {
     @Column(length = 50000)
     private String description;
 
+    @JsonIgnore
     @OneToMany(mappedBy="brand")
     private Set<Product> products;
 
@@ -61,6 +64,7 @@ public class Brand {
         this.description = description;
     }
 
+    @JsonIgnore
     public Set<Product> getProducts() {
         return products;
     }
@@ -73,11 +77,13 @@ public class Brand {
     public String toString() {
         ObjectMapper objectMapper = new ObjectMapper();
 
-        try {
-            return objectMapper.writeValueAsString(this);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return "brand to jackson error\n";
-        }
+
+        return "\n\n BRAND MODEL TO JSON \n\n";
+//        try {
+//            return objectMapper.writeValueAsString(this);
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//            return "\n\nBRAND MODEL to jackson error\n\n";
+//        }
     }
 }
