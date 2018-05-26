@@ -73,7 +73,7 @@ body{
 .snowboardBaseEnumInside{
     left: 50%;
     position: relative;
-    max-width: 500px;
+    max-width: 1500px;
     transform: translate(-50%);  /* centers image/element on "left: 50%" position */
 }
 

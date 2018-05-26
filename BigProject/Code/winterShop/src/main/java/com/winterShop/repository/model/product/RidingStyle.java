@@ -25,4 +25,44 @@ public class RidingStyle {
 
     public RidingStyle() {
     }
+
+    public Long getRidingStyleId() {
+        return ridingStyleId;
+    }
+
+    public void setRidingStyleId(Long ridingStyleId) {
+        this.ridingStyleId = ridingStyleId;
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
+    }
+
+    public String getStyleDescription() {
+        return styleDescription;
+    }
+
+    public void setStyleDescription(String styleDescription) {
+        this.styleDescription = styleDescription;
+    }
+
+    public Set<SnowboardBootsBase> getSnowboardBootsBaseSet() {
+        return snowboardBootsBaseSet;
+    }
+
+    public void setSnowboardBootsBaseSet(Set<SnowboardBootsBase> snowboardBootsBaseSet) {
+        this.snowboardBootsBaseSet = snowboardBootsBaseSet;
+    }
+
+    public Set<SnowboardBase> getSnowboardBaseSet() {
+        return snowboardBaseSet;
+    }
+
+    public void setSnowboardBaseSet(Set<SnowboardBase> snowboardBaseSet) {
+        this.snowboardBaseSet = snowboardBaseSet;
+    }
 }

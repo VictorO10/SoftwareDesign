@@ -13,11 +13,11 @@ import java.util.Set;
 @Entity
 public class SnowboardBase extends Product {
 
-//    @DecimalMin("1")
-//    @DecimalMax("10")
+    @DecimalMin("1")
+    @DecimalMax("10")
     private Long stiffness;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany
     @JoinTable(
             name = "Snowboard_RidingStyle",
             joinColumns = {@JoinColumn(name = "product_id")},
@@ -25,7 +25,7 @@ public class SnowboardBase extends Product {
     )
     private Set<RidingStyle> ridingStyleSet;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany
     @JoinTable(
             name = "Snowboard_RidingLevel",
             joinColumns = {@JoinColumn(name = "product_id")},

@@ -1,10 +1,7 @@
 package com.winterShop.controller.product;
 
 import com.winterShop.service.contracts.product.*;
-import com.winterShop.service.model.product.BrandDTO;
-import com.winterShop.service.model.product.CategoryDTO;
-import com.winterShop.service.model.product.RidingStyleDTO;
-import com.winterShop.service.model.product.TargetGroupDTO;
+import com.winterShop.service.model.product.*;
 import com.winterShop.service.model.product.snowboard.SnowboardBaseDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +32,9 @@ public class SnowboardController {
     @Autowired
     RidingStyleService ridingStyleService;
 
+    @Autowired
+    RidingLevelService ridingLevelService;
+
     @GetMapping
     public String getAllSnowboards(Model model){
 
@@ -50,8 +50,16 @@ public class SnowboardController {
         List<RidingStyleDTO> ridingStyles = ridingStyleService.getAll();
         model.addAttribute("ridingStyles", ridingStyles);
 
+        List<RidingLevelDTO> ridingLevels = ridingLevelService.getAll();
+        model.addAttribute("ridingLevels", ridingLevels);
+
         List<TargetGroupDTO> targetGroups = targetGroupService.getAll();
         model.addAttribute("targetGroups", targetGroups);
+
+        System.out.println("bases size: " + snowboardBases.size());
+        for(SnowboardBaseDTO sb: snowboardBases) {
+            System.out.println(sb);
+        }
 
         return "product/snowboard";
     }

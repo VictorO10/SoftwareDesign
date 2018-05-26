@@ -17,7 +17,7 @@ public class SnowboardBootsBase extends Product {
     @DecimalMax("10")
     private Long stiffness;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany
     @JoinTable(
             name = "SnowboardBoots_RidingStyle",
             joinColumns = {@JoinColumn(name = "product_id")},
@@ -25,7 +25,7 @@ public class SnowboardBootsBase extends Product {
     )
     private Set<RidingStyle> ridingStyleSet;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany
     @JoinTable(
             name = "SnowboardBootsBase_RidingLevel",
             joinColumns = {@JoinColumn(name = "product_id")},
