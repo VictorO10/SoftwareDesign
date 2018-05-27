@@ -33,9 +33,6 @@ public class SnowboardBase extends Product {
     )
     private Set<RidingLevel> ridingLevelSet;
 
-    @OneToMany(mappedBy = "snowboardBase")
-    private Set<SnowboardCharacteristics> snowboardCharacteristicsSet;
-
     public SnowboardBase() {
     }
 
@@ -63,17 +60,9 @@ public class SnowboardBase extends Product {
         this.ridingLevelSet = ridingLevelSet;
     }
 
-    public Set<SnowboardCharacteristics> getSnowboardCharacteristicsSet() {
-        return snowboardCharacteristicsSet;
-    }
-
-    public void setSnowboardCharacteristicsSet(Set<SnowboardCharacteristics> snowboardCharacteristicsSet) {
-        this.snowboardCharacteristicsSet = snowboardCharacteristicsSet;
-    }
-
 
     @Override
     public String toString() {
-        return ("TO STRING FROM SnowboardBase normal");
+        return ("TO STRING FROM SnowboardBase normal. PRODUCT ID = " + productId);
     }
 }

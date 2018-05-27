@@ -25,10 +25,6 @@ public class SnowboardBootsCharacteristics {
     @JoinColumn(name="color_id", nullable = true)
     private Color color;
 
-    @ManyToOne
-    @JoinColumn(name="product_id", nullable = false)
-    private SnowboardBootsBase snowboardBootsBase;
-
     public SnowboardBootsCharacteristics() {
     }
 
@@ -54,13 +50,5 @@ public class SnowboardBootsCharacteristics {
 
     public void setColor(Color color) {
         this.color = color;
-    }
-
-    public SnowboardBootsBase getSnowboardBootsBase() {
-        return snowboardBootsBase;
-    }
-
-    public void setSnowboardBootsBase(SnowboardBootsBase snowboardBootsBase) {
-        this.snowboardBootsBase = snowboardBootsBase;
     }
 }

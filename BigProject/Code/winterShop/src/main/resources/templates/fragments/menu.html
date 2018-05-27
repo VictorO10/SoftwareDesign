@@ -1,7 +1,7 @@
 <div th:fragment="menu" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
     <p>Here comes the menu and whatever comes above the menu!!!</p>
     <div>
-        <img src = "images/topImage.jpg"  class="topImage"/>
+        <img th:src = @{/images/topImage.jpg}  class="topImage"/>
     </div>
     <hr class="longLine"></hr>
 
@@ -38,19 +38,19 @@
 
 
                 </ul>
-                <!--<ul class="nav navbar-nav navbar-right">-->
-                    <!--<li th:if="${#authorization.expression('!isAuthenticated()')}">-->
-                        <!--<a href="/login" th:href="@{/login}">-->
-                            <!--<span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;Sign in-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li th:if="${#authorization.expression('isAuthenticated()')}">-->
-                        <!--<a href="/logout" th:href="@{#}" onclick="$('#form').submit();">-->
-                            <!--<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout-->
-                        <!--</a>-->
-                        <!--<form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>-->
-                    <!--</li>-->
-                <!--</ul>-->
+                <ul class="nav navbar-nav navbar-right">
+                    <li th:if="${#authorization.expression('!isAuthenticated()')}">
+                        <a href="/login" th:href="@{/login}">
+                            <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;Sign in
+                        </a>
+                    </li>
+                    <li th:if="${#authorization.expression('isAuthenticated()')}">
+                        <a href="/logout" th:href="@{#}" onclick="$('#form').submit();">
+                            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout
+                        </a>
+                        <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
+                    </li>
+                </ul>
             </div>
             <!--/.nav-collapse -->
         </div>

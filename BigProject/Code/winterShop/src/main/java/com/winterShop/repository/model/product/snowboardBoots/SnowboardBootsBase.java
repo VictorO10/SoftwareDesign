@@ -33,9 +33,6 @@ public class SnowboardBootsBase extends Product {
     )
     private Set<RidingLevel> ridingLevelSet;
 
-    @OneToMany(mappedBy = "snowboardBootsBase")
-    Set<SnowboardBootsCharacteristics> snowboardBootsCharacteristicsSet;
-
     public SnowboardBootsBase() {
     }
 }

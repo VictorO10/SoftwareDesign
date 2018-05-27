@@ -30,6 +30,7 @@ public class ProductDTO implements Serializable {
   //  @JsonManagedReference
     protected CategoryDTO categoryDTO;
 
+    @JsonBackReference(value="ProductDTO-ProductWCharsDTO")
     protected Set<ProductWCharsDTO> productWCharsDTOSet;
 
 
@@ -113,7 +114,7 @@ public class ProductDTO implements Serializable {
         try {
             return objectMapper.writeValueAsString(this);
         } catch (JsonProcessingException e) {
-//            e.printStackTrace();
+//            return e.toString();
             return "productDTO to jackson error\n";
         }
     }

@@ -4,11 +4,13 @@ import com.winterShop.repository.model.inventory.Inventory;
 import com.winterShop.repository.model.order.OrderItem;
 import com.winterShop.repository.model.product.snowboard.SnowboardCharacteristics;
 import com.winterShop.repository.model.product.snowboardBoots.SnowboardBootsCharacteristics;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@DynamicUpdate
 public class ProductWChars {
 
     @SequenceGenerator(
@@ -25,14 +27,13 @@ public class ProductWChars {
     @JoinColumn(name="productId", nullable = false)
     private Product product;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="snowboardCharacteristics_id", nullable = true)
     private SnowboardCharacteristics snowboardCharacteristics;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="snowboardBootsCharacteristics_id", nullable = true)
     private SnowboardBootsCharacteristics snowboardBootsCharacteristics;
-
 
     @OneToMany(mappedBy = "productWChars")
     protected Set<Inventory> inventorySet;
@@ -41,6 +42,8 @@ public class ProductWChars {
     protected Set<OrderItem> orderItemSet;
 
     private String image;
+
+    private Long stock;
 
     public ProductWChars() {
     }
@@ -99,5 +102,13 @@ public class ProductWChars {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public Long getStock() {
+        return stock;
+    }
+
+    public void setStock(Long stock) {
+        this.stock = stock;
     }
 }

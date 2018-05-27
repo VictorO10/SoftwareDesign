@@ -17,8 +17,6 @@ public class SnowboardBootsBaseDTO extends ProductDTO {
 
     private Set<RidingLevelDTO> ridingLevelDTOSet;
 
-    Set<SnowboardBootsCharacteristicsDTO> snowboardBootsCharacteristicsDTOSet;
-
     public SnowboardBootsBaseDTO() {
     }
 }

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/default" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<body>
+
+<div id="page" layout:fragment="content">
+
+    <div class="homeDiv">
+        <h1>WELCOME TO THE WINTER SHOP [[${#httpServletRequest.remoteUser}]]!</h1>
+        <span th:text ="${#authentication}"></span>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/n0F6hSpxaFc?start=144" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+
+</div>
+</body>
+</html>

@@ -12,8 +12,6 @@ public class SnowboardBootsCharacteristicsDTO {
 
     private ColorDTO colorDTO;
 
-    private SnowboardBootsBaseDTO snowboardBootsBaseDTO;
-
     public SnowboardBootsCharacteristicsDTO() {
     }
 }

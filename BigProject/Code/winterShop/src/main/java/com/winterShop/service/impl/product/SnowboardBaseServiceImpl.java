@@ -44,7 +44,20 @@ public class SnowboardBaseServiceImpl implements SnowboardBaseService {
 
     @Override
     public SnowboardBaseDTO getById(Long aLong) {
-        return null;
+        SnowboardBase snowboardBase;
+        SnowboardBaseDTO snowboardBaseDTO;
+
+        if(snowboardBaseDAO.findById(aLong).isPresent()){
+            snowboardBase = snowboardBaseDAO.findById(aLong).get();
+            snowboardBaseDTO = modelMapper.map(snowboardBase, SnowboardBaseDTO.class);
+        } else
+        {
+            snowboardBase = null;
+            snowboardBaseDTO = null;
+        }
+
+
+        return snowboardBaseDTO;
     }
 
     @Override

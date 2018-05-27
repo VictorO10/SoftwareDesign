@@ -16,10 +16,23 @@ public class SnowboardCharacteristics {
 
     private Long length;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    SnowboardBase snowboardBase;
-
     public SnowboardCharacteristics() {
     }
+
+    public Long getSnowboardCharacteristicsId() {
+        return snowboardCharacteristicsId;
+    }
+
+    public void setSnowboardCharacteristicsId(Long snowboardCharacteristicsId) {
+        this.snowboardCharacteristicsId = snowboardCharacteristicsId;
+    }
+
+    public Long getLength() {
+        return length;
+    }
+
+    public void setLength(Long length) {
+        this.length = length;
+    }
+
 }

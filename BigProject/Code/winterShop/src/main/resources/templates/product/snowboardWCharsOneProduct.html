@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/default" xmlns:th="http://www.w3.org/1999/xhtml">
+
+
+<body>
+<div id="page" layout:fragment="content">
+
+    <script>
+        function setPicture(chars){
+            console.log(JSON.parse(chars.value).image);
+            var productImage = document.getElementById("productImage");
+            productImage.src = '../images/' + JSON.parse(chars.value).image;
+        }
+
+        function addToCart(){
+            alert("added To Cart");
+        }
+    </script>
+
+    <div th:if="${#lists.isEmpty(productWCharss)}" class="noProdDiv">
+        <h1>No products of this type are on stock :(</h1>
+        <img src="/images/product/noProduct.png">
+    </div>
+    <div th:if="${not #lists.isEmpty(productWCharss)}" class="yesProdDiv">
+        <h1 th:text="${snowboardBase.name}"></h1>
+        <div>
+            <p th:utext="${snowboardBase.description}"></p>
+        </div>
+
+        <div class="leftDiv">
+            <img th:src="'../images/' + ${productWCharss[__0__].image}" id="productImage">
+        </div>
+        <div class="rightDiv">
+            <div class = "leftDiv">
+                <h4><u><b>Riding Style</b></u></h4>
+                <table>
+                    <tr th:each = "ridingStyle: ${snowboardBase.ridingStyleDTOSet}" >
+                        <p th:text="${ridingStyle.style}"></p>
+                    </tr>
+                </table>
+            </div>
+            <div class = "rightDiv">
+                <h4><u><b>Riding Level</b></u></h4>
+                <table>
+                    <tr th:each = "ridingLevel: ${snowboardBase.ridingLevelDTOSet}" >
+                        <p th:text="${ridingLevel.level}"></p>
+                    </tr>
+                </table>
+            </div>
+            <div class = "leftDiv">
+                <h4><u><b>Target Group</b></u></h4>
+                <p th:text="${snowboardBase.targetGroupDTO.groupName}"></p>
+            </div>
+            <div class = "rightDiv">
+                <h4><u><b>Brand</b></u></h4>
+                <p th:text="${snowboardBase.brandDTO.name}"></p>
+            </div>
+            <div>
+                <div class = "leftDiv">
+                    <form id="addToCartForm">
+                        <select class="form-control" id="charsDropdown" onchange="setPicture(this);">
+                            <option th:each="productWChars : ${productWCharss}"
+                                    th:value="${productWChars}"
+                                    th:text="'length: ' + ${productWChars.snowboardCharacteristicsDTO.length}">Wireframe</option>
+                        </select>
+                    </form>
+                </div>
+                <div class = "rightDiv">
+                    <img id="addToCartBtn" src="/images/product/addToCart.png" type="button"  th:onclick="'addToCart()'" title="Add To Cart"></img>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>

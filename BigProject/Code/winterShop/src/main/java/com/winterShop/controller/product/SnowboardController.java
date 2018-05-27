@@ -56,10 +56,10 @@ public class SnowboardController {
         List<TargetGroupDTO> targetGroups = targetGroupService.getAll();
         model.addAttribute("targetGroups", targetGroups);
 
-        System.out.println("bases size: " + snowboardBases.size());
-        for(SnowboardBaseDTO sb: snowboardBases) {
-            System.out.println(sb);
-        }
+//        System.out.println("bases size: " + snowboardBases.size());
+//        for(SnowboardBaseDTO sb: snowboardBases) {
+//            System.out.println(sb);
+//        }
 
         return "product/snowboard";
     }

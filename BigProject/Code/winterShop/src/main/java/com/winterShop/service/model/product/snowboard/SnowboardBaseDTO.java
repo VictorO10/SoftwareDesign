@@ -1,5 +1,6 @@
 package com.winterShop.service.model.product.snowboard;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.winterShop.service.model.product.ProductDTO;
@@ -16,8 +17,6 @@ public class SnowboardBaseDTO extends ProductDTO {
     private Set<RidingStyleDTO> ridingStyleDTOSet;
 
     private Set<RidingLevelDTO> ridingLevelDTOSet;
-
-    private Set<SnowboardCharacteristicsDTO> snowboardCharacteristicsDTOSet;
 
     public SnowboardBaseDTO() {
     }
@@ -46,14 +45,6 @@ public class SnowboardBaseDTO extends ProductDTO {
         this.ridingLevelDTOSet = ridingLevelDTOSet;
     }
 
-    public Set<SnowboardCharacteristicsDTO> getSnowboardCharacteristicsDTOSet() {
-        return snowboardCharacteristicsDTOSet;
-    }
-
-    public void setSnowboardCharacteristicsDTOSet(Set<SnowboardCharacteristicsDTO> snowboardCharacteristicsDTOSet) {
-        this.snowboardCharacteristicsDTOSet = snowboardCharacteristicsDTOSet;
-    }
-
     @Override
     public String toString() {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -61,8 +52,7 @@ public class SnowboardBaseDTO extends ProductDTO {
         try {
             return objectMapper.writeValueAsString(this);
         } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-
+            e.printStackTrace();
             return "snowboardBaseDTO to jackson error\n";
         }
     }

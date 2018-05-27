@@ -25,4 +25,28 @@ public class Inventory {
 
     public Inventory() {
     }
+
+    public Long getInventoryId() {
+        return inventoryId;
+    }
+
+    public void setInventoryId(Long inventoryId) {
+        this.inventoryId = inventoryId;
+    }
+
+    public ProductWChars getProductWChars() {
+        return productWChars;
+    }
+
+    public void setProductWChars(ProductWChars productWChars) {
+        this.productWChars = productWChars;
+    }
+
+    public Long getStock() {
+        return stock;
+    }
+
+    public void setStock(Long stock) {
+        this.stock = stock;
+    }
 }

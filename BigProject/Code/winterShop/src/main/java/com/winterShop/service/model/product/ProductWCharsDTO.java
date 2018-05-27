@@ -1,5 +1,7 @@
 package com.winterShop.service.model.product;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.winterShop.service.model.inventory.InventoryDTO;
 import com.winterShop.service.model.order.OrderItemDTO;
 import com.winterShop.service.model.product.snowboard.SnowboardCharacteristicsDTO;
@@ -23,6 +25,8 @@ public class ProductWCharsDTO {
     protected Set<OrderItemDTO> orderItemDTOSet;
 
     private String image;
+
+    private Long stock;
 
     public ProductWCharsDTO() {
     }
@@ -81,5 +85,24 @@ public class ProductWCharsDTO {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public Long getStock() {
+        return stock;
+    }
+
+    public void setStock(Long stock) {
+        this.stock = stock;
+    }
+
+    @Override
+    public String toString() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+//            return e.toString();
+            return "productWCharsDTO to jackson error\n";
+        }
     }
 }
