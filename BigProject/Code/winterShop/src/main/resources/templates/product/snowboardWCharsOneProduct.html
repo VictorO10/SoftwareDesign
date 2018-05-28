@@ -15,12 +15,30 @@
         }
 
         function addToCart(){
-            alert("added To Cart");
+            var selectedChar = document.getElementById("charsDropdown"); //selected Characteristic
+            console.log(JSON.parse(selectedChar.value).productWCharsId);
+
+            var productWCharsId = JSON.parse(selectedChar.value).productWCharsId;
+
+            $.ajax({
+                url:'/order/shoppingCart?productWCharsId=' + productWCharsId,
+                type:'post',
+                contentType: "application/json; charset=utf-8",
+                data:null,
+                dataType:'json',
+                success:function(){
+                    alert("Added item in cart!");
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown){
+                    alert(errorThrown.toString());
+                    alert("PERMISSION DENIED");
+                }
+            });
         }
     </script>
 
     <div th:if="${#lists.isEmpty(productWCharss)}" class="noProdDiv">
-        <h1>No products of this type are on stock :(</h1>
+        <h1 th:text="'No products of type ' + ${snowboardBase?.name} + ' are on stock :('"></h1>
         <img src="/images/product/noProduct.png">
     </div>
     <div th:if="${not #lists.isEmpty(productWCharss)}" class="yesProdDiv">
@@ -56,6 +74,15 @@
             <div class = "rightDiv">
                 <h4><u><b>Brand</b></u></h4>
                 <p th:text="${snowboardBase.brandDTO.name}"></p>
+            </div>
+            <div class = "leftDiv">
+                <h4><u><b>Category</b></u></h4>
+                <p th:text="${snowboardBase.categoryDTO.category}"></p>
+            </div>
+            <div class = "rightDiv">
+                <h4><u><b>Price</b></u></h4>
+                <strike><p th:text="${snowboardBase.price + snowboardBase.price / 7} + ' €'" style="display:inline"></p></strike>
+                <p th:text="${snowboardBase.price} + ' €'" class="priceTag" style="display:inline"></p>
             </div>
             <div>
                 <div class = "leftDiv">

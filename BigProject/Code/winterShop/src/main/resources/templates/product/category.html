@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layouts/default" xmlns:th="http://www.w3.org/1999/xhtml">
+      layout:decorator="layouts/default" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <body>
 
@@ -12,18 +13,18 @@
         <div class="categoryEnumInside">
             <table class="enumTable" id="enumCategoryTable" align="center">
                 <tr>
-                    <td colspan="5"><h1 class="tableTitle">Categorys</h1></td>
+                    <td colspan="5"><h1 class="tableTitle">Categories</h1></td>
                 </tr>
                 <tr>
-                    <td>ID</td>
+                    <td sec:authorize="hasAuthority('ADMIN')">ID</td>
                     <td>CATEGORY</td>
-                    <td>DELETE</td>
-                    <td style="text-align: center">EDIT</td>
+                    <td sec:authorize="hasAuthority('ADMIN')">DELETE</td>
+                    <td style="text-align: center" sec:authorize="hasAuthority('ADMIN')">EDIT</td>
                 </tr>
                 <tr th:each="category,iter: ${categorys}">
-                    <td th:text="${category.categoryId}"></td>
+                    <td th:text="${category.categoryId}" sec:authorize="hasAuthority('ADMIN')"></td>
                     <td th:text="${category.category}"></td>
-                    <td>
+                    <td sec:authorize="hasAuthority('ADMIN')">
                         <script>
                             function deleteCategory (idCategory){
                                 if(confirm("Are you sure you wanna delete this Category?")) {
@@ -45,7 +46,7 @@
                         <button type="button" th:onclick="'deleteCategory(' + ${category.categoryId} + ')'">DELETE</button>
 
                     </td>
-                    <td>
+                    <td sec:authorize="hasAuthority('ADMIN')">
                         <script>
                             function editCategory (index){
                                 $.ajax({
@@ -84,7 +85,7 @@
             </table>
         </div>
     </div>
-    <div class="categoryEnum">
+    <div class="categoryEnum" sec:authorize="hasAuthority('ADMIN')">
 
         <div class="categoryEnumInside">
             <script>

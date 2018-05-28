@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layouts/default" xmlns:th="http://www.w3.org/1999/xhtml">
+      layout:decorator="layouts/default" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <body>
 
@@ -57,7 +58,7 @@
                     <td colspan="15"><h1 class="tableTitle">Snowboards</h1></td>
                 </tr>
                 <tr>
-                    <td>ID</td>
+                    <td sec:authorize="hasAuthority('ADMIN')">ID</td>
                     <td>NAME</td>
                     <td>DESCRIPTION</td>
                     <td>PRICE</td>
@@ -67,12 +68,12 @@
                     <td>LEVEL</td>
                     <td>BRAND</td>
                     <td>TARGET GROUP</td>
-                    <td>DELETE</td>
-                    <td style="text-align: center">EDIT</td>
+                    <td sec:authorize="hasAuthority('ADMIN')">DELETE</td>
+                    <td style="text-align: center" sec:authorize="hasAuthority('ADMIN')">EDIT</td>
                 </tr>
                 <tr th:each="snowboardBase,iter: ${snowboardBases}">
-                    <td th:text="${snowboardBase.productId}"></td>
-                    <td th:text="${snowboardBase.name}"></td>
+                    <td th:text="${snowboardBase.productId}" sec:authorize="hasAuthority('ADMIN')"></td>
+                    <td><a th:href="${#httpServletRequest.requestURI} + '/details?productId=' + ${snowboardBase.productId}" th:text="${snowboardBase.name}"></a></td>
                     <td>
                         <details>
                             <summary th:text="'Details'"></summary>
@@ -94,7 +95,7 @@
                     </td>
                     <td th:text="${snowboardBase.brandDTO != null ? snowboardBase.brandDTO.name : 'NOT FOUND'}"></td>
                     <td th:text="${snowboardBase.targetGroupDTO != null ? snowboardBase.targetGroupDTO.groupName : 'NOT FOUND'}"></td>
-                    <td>
+                    <td sec:authorize="hasAuthority('ADMIN')">
                         <script>
                             function deleteSnowboardBase (idSnowboardBase){
                                 if(confirm("Are you sure you wanna delete this SnowboardBase?")) {
@@ -116,7 +117,7 @@
                         <button type="button" th:onclick="'deleteSnowboardBase(' + ${snowboardBase.productId} + ')'">DELETE</button>
 
                     </td>
-                    <td>
+                    <td sec:authorize="hasAuthority('ADMIN')">
                         <script>
                             function editSnowboardBase (index){
 
@@ -238,9 +239,10 @@
                     </td>
                 </tr>
             </table>
+            <center><a th:href="${#httpServletRequest.requestURI} + '/details'" sec:authorize="hasAuthority('ADMIN')">Inventory</a></center>
         </div>
     </div>
-    <div class="snowboardBaseEnum">
+    <div class="snowboardBaseEnum" sec:authorize="hasAuthority('ADMIN')">
 
         <div class="snowboardBaseEnumInside">
             <script>
@@ -356,7 +358,6 @@
                         </td>
                     </tr>
                 </table>
-                <input type="submit" value="New SnowboardBase">
 
             </form>
 

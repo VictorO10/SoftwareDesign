@@ -2,6 +2,8 @@ package com.winterShop.repository.model.product;
 
 import com.winterShop.repository.model.inventory.Inventory;
 import com.winterShop.repository.model.order.OrderItem;
+import com.winterShop.repository.model.order.ShoppingCart;
+import com.winterShop.repository.model.order.ShoppingCartLine;
 import com.winterShop.repository.model.product.snowboard.SnowboardCharacteristics;
 import com.winterShop.repository.model.product.snowboardBoots.SnowboardBootsCharacteristics;
 import org.hibernate.annotations.DynamicUpdate;
@@ -40,6 +42,9 @@ public class ProductWChars {
 
     @OneToMany(mappedBy = "productWChars")
     protected Set<OrderItem> orderItemSet;
+
+    @OneToMany(mappedBy = "productWChars")
+    protected Set<ShoppingCartLine> shoppingCartLineSet;
 
     private String image;
 
@@ -110,5 +115,13 @@ public class ProductWChars {
 
     public void setStock(Long stock) {
         this.stock = stock;
+    }
+
+    public Set<ShoppingCartLine> getShoppingCartLineSet() {
+        return shoppingCartLineSet;
+    }
+
+    public void setShoppingCartLineSet(Set<ShoppingCartLine> shoppingCartLineSet) {
+        this.shoppingCartLineSet = shoppingCartLineSet;
     }
 }

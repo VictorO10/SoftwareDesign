@@ -1,13 +1,18 @@
 package com.winterShop.controller.product;
 
+import com.winterShop.service.contracts.order.ShoppingCartLineService;
+import com.winterShop.service.contracts.order.ShoppingCartService;
 import com.winterShop.service.contracts.product.ProductWCharsService;
 import com.winterShop.service.contracts.product.SnowboardBaseService;
+import com.winterShop.service.model.order.ShoppingCartLineDTO;
 import com.winterShop.service.model.product.ProductWCharsDTO;
 import com.winterShop.service.model.product.snowboard.SnowboardBaseDTO;
 import com.winterShop.service.model.product.snowboard.SnowboardCharacteristicsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +28,12 @@ public class SnowboardWCharsController {
 
     @Autowired
     SnowboardBaseService snowboardBaseService;
+
+    @Autowired
+    ShoppingCartService shoppingCartService;
+
+    @Autowired
+    ShoppingCartLineService shoppingCartLineService;
 
     @GetMapping
     public String getAllProductWCharss(@RequestParam(value = "productId", required = false) Long productId, Model model){
@@ -66,7 +77,6 @@ public class SnowboardWCharsController {
 
         return new ResponseEntity<>(productWChars, HttpStatus.OK);
     }
-
 
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteProductWChars(@PathVariable("id") Long productWCharsId) {

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/default" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<body>
+
+<div id="page" layout:fragment="content">
+    <div class="shoppingCartEnum">
+    <table class="shoppingCartEnumInside" th:if="${not #sets.isEmpty(shoppingCart?.shoppingCartLineDTOSet)}">
+        <tr th:each="line, index: ${shoppingCart?.shoppingCartLineDTOSet}">
+            <!--<td th:text="${index.index + 1}">-->
+            <!--</td>-->
+            <td>
+                <p th:text="${line?.productWCharsDTO?.productDTO.price + ' €'}" class="priceTag"></p>
+            </td>
+            <td  id="leftDivShoppingCart">
+                <div>
+                    <img th:src="'/images/' + ${line?.productWCharsDTO?.image}" class="imgProductInShoppingCart">
+                </div>
+            </td>
+            <td  id="rightDivShoppingCart">
+                <div>
+                    <a th:href="'/' + ${line?.productWCharsDTO?.productDTO?.categoryDTO?.category} + '/details?productId=' + ${line?.productWCharsDTO?.productDTO?.productId}" th:text="${line?.productWCharsDTO?.productDTO?.name}"></a>
+
+                    <!--Depending on the type of the product(boots, snowboard), show only certain characteristics-->
+                    <div th:if="${line?.productWCharsDTO?.snowboardCharacteristicsDTO != null}">
+                        <p th:text="'length: '+ ${line?.productWCharsDTO?.snowboardCharacteristicsDTO?.length}" ></p>
+                    </div>
+
+                    <div th:if="${line?.productWCharsDTO?.snowboardBootsCharacteristicsDTO != null}">
+                        <p th:text="'Boot Size CM: ' + ${line?.productWCharsDTO?.snowboardBootsCharacteristicsDTO?.shoeSizeDTO?.cm}"></p>
+                        <p th:text="'Boot Size EU: ' + ${line?.productWCharsDTO?.snowboardBootsCharacteristicsDTO?.shoeSizeDTO?.eu}"></p>
+                        <p th:text="'Color: ' + ${line?.productWCharsDTO?.snowboardBootsCharacteristicsDTO?.shoeSizeDTO?.eu}"></p>
+                    </div >
+                </div>
+            </td>
+            <td>
+                <script>
+                    function deleteShoppingCartLine(index) {
+                        if(confirm("Are you sure you wanna remove this product from your cart?")) {
+                            $.ajax({
+                                url:'shoppingCart/' + index,
+                                type:'DELETE',
+                                success:function(){
+                                    alert("Product removed successfully");
+                                }
+                            });
+                            location.reload();
+                            // $("#enumSnowboardBaseTable").load(" #enumSnowboardBaseTable>*");
+                        } else {
+                            alert("ok u cool");
+                        }
+                    }
+                </script>
+
+                <button type="button" th:onclick="'deleteShoppingCartLine(' + ${line.shoppingCartLineId} + ')'">Remove From Cart</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p class="priceTag" th:text="${#aggregates.sum(shoppingCart.shoppingCartLineDTOSet.![productWCharsDTO.productDTO.price])} + ' €'"></p>
+            </td>
+            <td colspan="4">
+                <button class="tableTitle">Finish order</button></td>
+            </td>
+        </tr>
+    </table>
+    </div>
+    <div th:if="${#sets.isEmpty(shoppingCart?.shoppingCartLineDTOSet)}" class="noProdDiv">
+        <h1 th:text="'You have nothing in your cart. Go put something!'"></h1>
+        <img src="/images/order/Empty_Cart.jpeg">
+    </div>
+</div>
+</body>
+</html>

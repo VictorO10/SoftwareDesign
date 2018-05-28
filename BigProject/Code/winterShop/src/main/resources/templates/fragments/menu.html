@@ -21,10 +21,10 @@
                     <li th:classappend="${module == 'Brands' ? 'active' : ''}">
                         <a href="#" th:href="@{/brand}">Brands</a>
                     </li>
-                    <li th:classappend="${module == 'Products' ? 'active' : ''}">
-                        <a href="#" th:href="@{/product}">Products</a>
-                    </li>
-                    <li th:classappend="${module == 'Categories' ? 'active' : ''}">
+                    <!--<li th:classappend="${module == 'Products' ? 'active' : ''}">-->
+                        <!--<a href="#" th:href="@{/product}">Products</a>-->
+                    <!--</li>-->
+                    <li th:classappend="${module == 'Categories' ? 'active' : ''}" sec:authorize="hasAuthority('ADMIN')">
                         <a href="#" th:href="@{/category}">Category</a>
                     </li>
                     <li th:classappend="${module == 'Snowboards' ? 'active' : ''}">
@@ -39,6 +39,9 @@
 
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    <li th:classappend="${module == '/order/shoppingCart' ? 'active' : ''}" th:if="${#authorization.expression('isAuthenticated()')}">
+                        <a href="#" th:href="@{/order/shoppingCart}">Shopping Cart</a>
+                    </li>
                     <li th:if="${#authorization.expression('!isAuthenticated()')}">
                         <a href="/login" th:href="@{/login}">
                             <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;Sign in

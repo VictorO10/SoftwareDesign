@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layouts/default" xmlns:th="http://www.w3.org/1999/xhtml">
+      layout:decorator="layouts/default" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <body>
 
@@ -15,14 +16,14 @@
                 <td colspan="5"><h1 class="tableTitle">Brands</h1></td>
             </tr>
             <tr>
-                <td>ID</td>
+                <td sec:authorize="hasAuthority('ADMIN')">ID</td>
                 <td>NAME</td>
                 <td>DESCRIPTION</td>
-                <td>DELETE</td>
-                <td style="text-align: center">EDIT</td>
+                <td sec:authorize="hasAuthority('ADMIN')">DELETE</td>
+                <td style="text-align: center" sec:authorize="hasAuthority('ADMIN')">EDIT</td>
             </tr>
             <tr th:each="brand,iter: ${brands}">
-                <td th:text="${brand.brandId}"></td>
+                <td th:text="${brand.brandId}" sec:authorize="hasAuthority('ADMIN')"></td>
                 <td th:text="${brand.name}"></td>
                 <td>
                     <details>
@@ -30,7 +31,7 @@
                         <p th:utext="${brand.description}"></p>
                     </details>
                 </td>
-                <td>
+                <td sec:authorize="hasAuthority('ADMIN')">
                     <script>
                         function deleteBrand (idBrand){
                             if(confirm("Are you sure you wanna delete this Brand?")) {
@@ -52,7 +53,7 @@
                     <button type="button" th:onclick="'deleteBrand(' + ${brand.brandId} + ')'">DELETE</button>
 
                 </td>
-                <td>
+                <td sec:authorize="hasAuthority('ADMIN')">
                     <script>
                         function editBrand (index){
                             $.ajax({
@@ -95,7 +96,7 @@
         </table>
         </div>
     </div>
-    <div class="brandEnum">
+    <div class="brandEnum" sec:authorize="hasAuthority('ADMIN')">
 
         <div class="brandEnumInside">
         <script>

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layouts/default" xmlns:th="http://www.w3.org/1999/xhtml">
+      layout:decorator="layouts/default" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <body>
 
@@ -57,17 +58,17 @@
                     <td colspan="20"><h1 class="tableTitle">ProductWCharss</h1></td>
                 </tr>
                 <tr>
-                    <td>ID</td>
+                    <td sec:authorize="hasAuthority('ADMIN')">ID</td>
                     <td>NAME</td>
                     <td>DESCRIPTION</td>
                     <td>LENGTH</td>
                     <td>IMAGE</td>
                     <td>STOCK</td>
-                    <td>DELETE</td>
-                    <td style="text-align: center">EDIT</td>
+                    <td sec:authorize="hasAuthority('ADMIN')">DELETE</td>
+                    <td style="text-align: center" sec:authorize="hasAuthority('ADMIN')">EDIT</td>
                 </tr>
                 <tr th:each="productWChars,iter: ${productWCharss}">
-                    <td th:text="${productWChars.productWCharsId}"></td>
+                    <td th:text="${productWChars.productWCharsId}" sec:authorize="hasAuthority('ADMIN')"></td>
                     <td th:text="${productWChars.productDTO?.name}"></td>
                     <td>
                         <details>
@@ -82,7 +83,7 @@
                         </details>
                     </td>
                     <td th:text="${productWChars.stock}"></td>
-                    <td>
+                    <td sec:authorize="hasAuthority('ADMIN')">
                         <script>
                             function deleteProductWChars (idProductWChars){
                                 if(confirm("Are you sure you wanna delete this ProductWChars?")) {
@@ -104,7 +105,7 @@
                         <button type="button" th:onclick="'deleteProductWChars(' + ${productWChars.productWCharsId} + ')'">DELETE</button>
 
                     </td>
-                    <td>
+                    <td sec:authorize="hasAuthority('ADMIN')">
                         <script>
                             function editProductWChars (index){
                                 $.ajax({
@@ -147,7 +148,7 @@
             </table>
         </div>
     </div>
-    <div class="productWCharsEnum">
+    <div class="productWCharsEnum" sec:authorize="hasAuthority('ADMIN')">
 
         <div class="productWCharsEnumInside">
             <script>
