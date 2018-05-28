@@ -97,6 +97,10 @@ public class ProductWCharsDTO {
         this.stock = stock;
     }
 
+    public void decrementStock(){
+        this.stock --;
+    }
+
     @Override
     public String toString() {
         ObjectMapper objectMapper = new ObjectMapper();

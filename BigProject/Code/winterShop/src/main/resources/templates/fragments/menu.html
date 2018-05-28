@@ -49,6 +49,11 @@
                         <a href="#" th:href="@{/order/admin}">All orders</a>
                     </li>
                     <li th:if="${#authorization.expression('!isAuthenticated()')}">
+                        <a href="/user/register" th:href="@{/user/register}">
+                            <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;Register
+                        </a>
+                    </li>
+                    <li th:if="${#authorization.expression('!isAuthenticated()')}">
                         <a href="/login" th:href="@{/login}">
                             <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;Sign in
                         </a>

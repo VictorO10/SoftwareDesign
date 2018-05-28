@@ -14,7 +14,6 @@ public class LoggedInServiceImpl implements LoggedInService {
     @Autowired
     UserService userService;
 
-
     @Override
     public String getLoggedInEmail() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
