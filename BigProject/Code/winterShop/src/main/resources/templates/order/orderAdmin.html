@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/default" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<body>
+
+<div id="page" layout:fragment="content">
+
+    <div th:if="${not #sets.isEmpty(orders)}" class="shoppingCartEnum">
+
+        <script>
+            function changeStatus(index) {
+                var url = "/order/admin/" + index;
+                console.log(url);
+
+                var selectForm = document.getElementById("orderStatusSelect" + index);
+
+                var selected = selectForm.options[selectForm.selectedIndex].value;
+
+                console.log(selected);
+
+                var data = '{' + '"status": "' + selected + '"}';
+
+                console.log(data);
+
+                $.ajax({
+                    url: url,
+                    data: {status: selected},
+                    type: 'put',
+                    succes:function(){
+                        alert("Status changed");
+                    }
+                });
+                alert("Status changed");
+
+                //ensure page reloads
+                $.ajax({
+                    url: window.location.href,
+                    headers: {
+                        "Pragma": "no-cache",
+                        "Expires": -1,
+                        "Cache-Control": "no-cache"
+                    }
+                }).done(function () {
+                    window.location.reload(true);
+                });
+
+            }
+        </script>
+
+        <table class="shoppingCartEnumInside">
+            <td>ORDER NUMBER</td>
+            <td>ORDER STATUS</td>
+            <td>ORDER DETAILS</td>
+            <tr th:each="order, index: ${orders}">
+                <td th:text="'Order Number ' + ${index.index + 1}"></td>
+                <td>
+                    <p th:text="${order.orderStatusDTO}"></p>
+                    <p>
+                        <select name="Order_Status" th:id="'orderStatusSelect' + ${order.orderDetailsId}">
+                            <option value="WAITING_FOR_PROCESSING">WAITING_FOR_PROCESSING</option>
+                            <option value="IN_DELIVERY">IN_DELIVERY</option>
+                            <option value="DELIVERED">DELIVERED</option>
+                        </select>
+                    </p>
+                    <button type="button" th:onclick="'changeStatus(' + ${order.orderDetailsId} + ')'">Change Status</button>
+                </td>
+                <td>
+                    <table>
+                        <tr th:each="line: ${order.orderItemDTOSet}">
+                            <td  id="leftDivShoppingCart">
+                                <div>
+                                    <img th:src="'/images/' + ${line?.productWCharsDTO?.image}" class="imgProductInShoppingCart">
+                                </div>
+                            </td>
+                            <td  id="rightDivShoppingCart">
+                                <div>
+                                    <a th:href="'/' + ${line?.productWCharsDTO?.productDTO?.categoryDTO?.category} + '/details?productId=' + ${line?.productWCharsDTO?.productDTO?.productId}" th:text="${line?.productWCharsDTO?.productDTO?.name}"></a>
+
+                                    <!--Depending on the type of the product(boots, snowboard), show only certain characteristics-->
+                                    <div th:if="${line?.productWCharsDTO?.snowboardCharacteristicsDTO != null}">
+                                        <p th:text="'length: '+ ${line?.productWCharsDTO?.snowboardCharacteristicsDTO?.length}" ></p>
+                                    </div>
+
+                                    <div th:if="${line?.productWCharsDTO?.snowboardBootsCharacteristicsDTO != null}">
+                                        <p th:text="'Boot Size CM: ' + ${line?.productWCharsDTO?.snowboardBootsCharacteristicsDTO?.shoeSizeDTO?.cm}"></p>
+                                        <p th:text="'Boot Size EU: ' + ${line?.productWCharsDTO?.snowboardBootsCharacteristicsDTO?.shoeSizeDTO?.eu}"></p>
+                                        <p th:text="'Color: ' + ${line?.productWCharsDTO?.snowboardBootsCharacteristicsDTO?.shoeSizeDTO?.eu}"></p>
+                                    </div >
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div th:if="${#sets.isEmpty(orders)}" class="noProdDiv">
+        <h1 th:text="'Nobody has ever ordered anything from our shop.'" ></h1>
+        <img src="/images/order/Empty_Cart.jpeg">
+    </div>
+</div>
+</body>
+</html>

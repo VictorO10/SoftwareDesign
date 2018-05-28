@@ -9,4 +9,5 @@ import javax.transaction.Transactional;
 @Repository
 @Transactional
 public interface UserDAO extends JpaRepository<User, Long> {
+    User findByEmail(String email);
 }

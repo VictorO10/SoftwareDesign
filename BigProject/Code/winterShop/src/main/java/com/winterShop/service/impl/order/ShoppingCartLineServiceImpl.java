@@ -96,7 +96,7 @@ public class ShoppingCartLineServiceImpl implements ShoppingCartLineService {
         shoppingCartLineDTO.setShoppingCartDTO(new ShoppingCartDTO());
         shoppingCartLineDTO.getShoppingCartDTO().setShoppingCartId(shoppingCartService.findShoppingCartIdByUserEmail(loggedInService.getLoggedInEmail()));
 
-        System.out.println("CART ID: " + shoppingCartService.findShoppingCartIdByUserEmail(loggedInService.getLoggedInEmail()));
+ //       System.out.println("CART ID: " + shoppingCartService.findShoppingCartIdByUserEmail(loggedInService.getLoggedInEmail()));
 
         return save(shoppingCartLineDTO);
     }

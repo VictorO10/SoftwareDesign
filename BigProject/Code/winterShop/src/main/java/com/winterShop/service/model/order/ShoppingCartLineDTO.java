@@ -2,7 +2,8 @@ package com.winterShop.service.model.order;
 
 import com.winterShop.service.model.product.ProductWCharsDTO;
 
-public class ShoppingCartLineDTO {
+public class
+ ShoppingCartLineDTO {
 
     private Long shoppingCartLineId;
 

@@ -118,7 +118,7 @@ public class Product {
     public String toString() {
         ObjectMapper objectMapper = new ObjectMapper();
 
-        System.out.println("TO STRING FROM Product normal");
+//        System.out.println("TO STRING FROM Product normal");
 
         return "\n\nbrandDTO to JSON\n\n";
 

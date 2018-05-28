@@ -110,7 +110,7 @@ public class ProductDTO implements Serializable {
     @Override
     public String toString() {
         ObjectMapper objectMapper = new ObjectMapper();
-        System.out.println("TO STRING FROM ProductDTO");
+ //       System.out.println("TO STRING FROM ProductDTO");
         try {
             return objectMapper.writeValueAsString(this);
         } catch (JsonProcessingException e) {

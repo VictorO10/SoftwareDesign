@@ -48,7 +48,7 @@ public class SnowboardBaseDTO extends ProductDTO {
     @Override
     public String toString() {
         ObjectMapper objectMapper = new ObjectMapper();
-        System.out.println("TO STRING FROM SnowboardBase");
+ //       System.out.println("TO STRING FROM SnowboardBase");
         try {
             return objectMapper.writeValueAsString(this);
         } catch (JsonProcessingException e) {

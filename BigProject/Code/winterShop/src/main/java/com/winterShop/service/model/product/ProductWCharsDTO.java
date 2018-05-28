@@ -1,5 +1,6 @@
 package com.winterShop.service.model.product;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.winterShop.service.model.inventory.InventoryDTO;
@@ -22,6 +23,7 @@ public class ProductWCharsDTO {
 
     protected Set<InventoryDTO> inventoryDTOSet;
 
+    @JsonBackReference("productWChars-orderItem")
     protected Set<OrderItemDTO> orderItemDTOSet;
 
     private String image;

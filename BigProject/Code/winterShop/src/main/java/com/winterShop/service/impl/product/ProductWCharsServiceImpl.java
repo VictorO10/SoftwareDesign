@@ -80,7 +80,7 @@ public class ProductWCharsServiceImpl implements ProductWCharsService {
 
         //we only want to update the stock and the image, the rest will stay the same
         ProductWCharsDTO productWCharsDTO = getById(id);
-        System.out.println(productWCharsDTO);
+ //       System.out.println(productWCharsDTO);
 
         productWCharsDTO.setImage(entity.getImage());
         productWCharsDTO.setStock(entity.getStock());

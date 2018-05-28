@@ -44,7 +44,9 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public BrandDTO getById(Long aLong) {
-        return null;
+        Brand brand = brandDAO.findById(aLong).get();
+        BrandDTO brandDTO = modelMapper.map(brand, BrandDTO.class);
+        return brandDTO;
     }
 
     @Override

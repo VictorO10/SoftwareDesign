@@ -1,5 +1,6 @@
 package com.winterShop.repository.model.product;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.winterShop.repository.model.inventory.Inventory;
 import com.winterShop.repository.model.order.OrderItem;
 import com.winterShop.repository.model.order.ShoppingCart;
@@ -41,6 +42,7 @@ public class ProductWChars {
     protected Set<Inventory> inventorySet;
 
     @OneToMany(mappedBy = "productWChars")
+    @JsonBackReference("productWChars-orderItem")
     protected Set<OrderItem> orderItemSet;
 
     @OneToMany(mappedBy = "productWChars")

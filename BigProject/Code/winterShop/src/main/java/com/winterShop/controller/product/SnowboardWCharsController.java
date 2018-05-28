@@ -63,7 +63,7 @@ public class SnowboardWCharsController {
     @PostMapping
     public ResponseEntity<ProductWCharsDTO> createNewProductWChars(@RequestBody ProductWCharsDTO productWChars, Model model) {
 
-        System.out.println(productWChars.getSnowboardCharacteristicsDTO().getLength());
+//        System.out.println(productWChars.getSnowboardCharacteristicsDTO().getLength());
 
         productWChars = productWCharsService.save(productWChars);
 
