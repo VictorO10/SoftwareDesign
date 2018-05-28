@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/default" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<body>
+
+<div id="page" layout:fragment="content">
+
+    <script>
+        function objectifyForm(form) {//serialize data function
+
+            var formArray = form.serializeArray();
+
+            var returnArray = {};
+            var snowboardBootsCharacteristicsDTO =  {
+                length: 110
+            }
+
+            console.log("AAAAAAAAAAAAAAAAAAAAA\n" + JSON.stringify(snowboardBootsCharacteristicsDTO) + "\nEEEEEEEEEEE\n");
+
+            console.log(formArray);
+            for (var i = 0; i < formArray.length; i++){
+                if(formArray[i]['name'].startsWith("snowboardBootsCharacteristicsDTO")) { //make array of ridingStyle
+                    var res = formArray[i]['name'].split(".");
+                    switch (res[1]) {
+                        case "length":
+                            snowboardBootsCharacteristicsDTO.length = formArray[i]['value'];
+                            break;
+                        default:
+                            null;
+                    }
+                }
+                else {
+                    returnArray[formArray[i]['name']] = formArray[i]['value'];
+                }
+            }
+
+            returnArray['snowboardBootsCharacteristicsDTO'] = snowboardBootsCharacteristicsDTO;
+            console.log('hey' + returnArray['productDTO']);
+            returnArray['productDTO'] = JSON.parse(returnArray['productDTO']);
+
+            console.table(returnArray);
+            return returnArray;
+        }
+
+        function formToJSON(form) {
+            return JSON.stringify(objectifyForm(form));
+        }
+    </script>
+
+    <div class="productWCharsEnum">
+
+        <div class="productWCharsEnumInside">
+            <table class="enumTable" id="enumProductWCharsTable" align="center">
+                <tr>
+                    <td colspan="20"><h1 class="tableTitle">ProductWCharss</h1></td>
+                </tr>
+                <tr>
+                    <td sec:authorize="hasAuthority('ADMIN')">ID</td>
+                    <td>NAME</td>
+                    <td>DESCRIPTION</td>
+                    <td>COLOR</td>
+                    <td>SIZE EU</td>
+                    <td>SIZE CM</td>
+                    <td>IMAGE</td>
+                    <td>STOCK</td>
+                    <td sec:authorize="hasAuthority('ADMIN')">DELETE</td>
+                    <td style="text-align: center" sec:authorize="hasAuthority('ADMIN')">EDIT</td>
+                </tr>
+                <tr th:each="productWChars,iter: ${productWCharss}">
+                    <td th:text="${productWChars.productWCharsId}" sec:authorize="hasAuthority('ADMIN')"></td>
+                    <td th:text="${productWChars.productDTO?.name}"></td>
+                    <td>
+                        <details>
+                            <summary th:text="'Details'"></summary>
+                            <p th:utext="${productWChars.productDTO?.description}"></p>
+                        </details>
+                    </td>
+                    <td th:text="${productWChars.snowboardBootsCharacteristicsDTO?.ColorDTO?.name}"/>
+                    <td th:text="${productWChars.snowboardBootsCharacteristicsDTO?.ShoeSizeDTO?.eu}"/>
+                    <td th:text="${productWChars.snowboardBootsCharacteristicsDTO?.ShoeSizeDTO?.cm}"/>
+                    <td>
+                        <details>
+                            <img th:src="'/images/' + ${productWChars.image}">
+                        </details>
+                    </td>
+                    <td th:text="${productWChars.stock}"></td>
+                    <td sec:authorize="hasAuthority('ADMIN')">
+                        <script>
+                            function deleteProductWChars (idProductWChars){
+                                if(confirm("Are you sure you wanna delete this ProductWChars?")) {
+                                    $.ajax({
+                                        url:'snowboardBootsWChars/' + idProductWChars,
+                                        type:'DELETE',
+                                        success:function(){
+                                            alert("ProductWChars deleted successfully");
+                                        }
+                                    });
+                                    location.reload();
+                                    $("#enumProductWCharsTable").load(" #enumProductWCharsTable>*");
+                                } else {
+                                    alert("ok u cool");
+                                }
+                            }
+                        </script>
+
+                        <button type="button" th:onclick="'deleteProductWChars(' + ${productWChars.productWCharsId} + ')'">DELETE</button>
+
+                    </td>
+                    <td sec:authorize="hasAuthority('ADMIN')">
+                        <script>
+                            function editProductWChars (index){
+                                $.ajax({
+                                    url:'details/' + index,
+                                    type:'put',
+                                    data:$('#editProductWChars' + index).serialize(),
+                                    success:function(){
+                                        alert("ProductWChars edited successfully");
+                                    },
+                                    error:function(XMLHttpRequest, textStatus, errorThrown){
+                                        alert("PERMISSION DENIED");
+                                    }
+                                });
+                                //ensure page reloads
+                                $.ajax({
+                                    url: window.location.href,
+                                    headers: {
+                                        "Pragma": "no-cache",
+                                        "Expires": -1,
+                                        "Cache-Control": "no-cache"
+                                    }
+                                }).done(function () {
+                                    window.location.reload(true);
+                                });
+                            }
+                        </script>
+
+                        <details>
+                            <summary>Edit</summary>
+
+                            <form th:id="'editProductWChars' + ${productWChars.productWCharsId}" th:object="${productWCharsModel}">
+                                <table>
+                                    <input type="hidden" th:id="'productWCharsId'" th:name="'productWCharsId'" th:value="${productWChars.productWCharsId}">
+                                    <tr>
+                                        <td>ProductWChars Image: </td>
+                                        <td><input type="text" th:id="'image'" th:name="'image'" th:value="${productWChars.image}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>ProductWChars stock: </td>
+                                        <td><input type="text" th:id="'stock'" th:name="'stock'" th:value="${productWChars.stock}"></td>
+                                    </tr>
+                                </table>
+                            </form>
+                            <button type="button" th:onclick="'editProductWChars(' + ${productWChars.productWCharsId} + ')'">Edit</button>
+
+                        </details>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!--<div class="productWCharsEnum" sec:authorize="hasAuthority('ADMIN')">-->
+
+        <!--<div class="productWCharsEnumInside">-->
+            <!--<script>-->
+
+                <!--function SaveForm(url) {-->
+
+                    <!--var form = $('#saveProductWCharsForm');-->
+
+                    <!--var data = formToJSON(form);-->
+
+                    <!--$.ajax({-->
+                        <!--url:url,-->
+                        <!--type:'post',-->
+                        <!--contentType: "application/json; charset=utf-8",-->
+                        <!--data:data,-->
+                        <!--dataType:'json',-->
+                        <!--success:function(){-->
+                            <!--alert("Added new ProductWChars!");-->
+                        <!--},-->
+                        <!--error:function(XMLHttpRequest, textStatus, errorThrown){-->
+                            <!--alert(errorThrown.toString());-->
+                            <!--alert("PERMISSION DENIED");-->
+                        <!--}-->
+                    <!--});-->
+
+                    <!--location.reload();-->
+                    <!--$("#enumProductWCharsTable").load(" #enumProductWCharsTable>*");-->
+                <!--}-->
+            <!--</script>-->
+
+            <!--<form th:id="saveProductWCharsForm" th:object="${productWCharsModel}" method="post">-->
+                <!--<table align="center">-->
+                    <!--<tr>-->
+                        <!--<td colspan="2"><h1 class="tableTitle">New ProductWChars</h1></td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>Choose SnowboardBoots: </td>-->
+                        <!--<td>-->
+                            <!--<select class="form-control" th:field="*{productDTO}">-->
+                                <!--<option th:each = "product: ${snowboardBootsBases}"-->
+                                        <!--th:value = "${product}"-->
+                                        <!--th:text = "${product.name}"-->
+                                <!--&gt;Wireframe</option>-->
+                            <!--</select>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>Length: </td>-->
+                        <!--<td>-->
+                            <!--<input type="text" th:field="*{snowboardBootsCharacteristicsDTO.length}">-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>Image Path: </td>-->
+                        <!--<td>-->
+                            <!--<input type="text" th:field="*{image}">-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>Stock: </td>-->
+                        <!--<td>-->
+                            <!--<input type="text" th:field="*{stock}">-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td colspan="2" align="center">-->
+                            <!--<button type="button"  th:onclick="'SaveForm(' + '\'' + ${#httpServletRequest.requestURI} + '\'' + ')'">Submit</button>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                <!--</table>-->
+
+            <!--</form>-->
+
+        <!--</div>-->
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

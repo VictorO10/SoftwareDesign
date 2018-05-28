@@ -10,4 +10,6 @@ public interface ProductWCharsService extends AbstractService<ProductWCharsDTO, 
     ProductWCharsDTO updateImgAndStock(Long id, ProductWCharsDTO entity);
 
     List<ProductWCharsDTO> findByProduct_productId(Long productId);
+
+    List<ProductWCharsDTO> getAll(String category);
 }

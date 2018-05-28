@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/default" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<body>
+
+<div id="page" layout:fragment="content">
+
+    <script>
+        function objectifyForm(form) {//serialize data function
+
+            var formArray = form.serializeArray();
+
+            var returnArray = {};
+            var ridingStyle = [];
+            var ridingLevel = [];
+            for (var i = 0; i < formArray.length; i++){
+                if(formArray[i]['name'] == 'ridingStyle') { //make array of ridingStyle
+                    console.log(formArray[i]['value']);
+                    ridingStyle.push(JSON.parse(formArray[i]['value'])); //since we get the ridingStyle already as JSON, we need to transform it into an actual JS object
+                } else if(formArray[i]['name'] == 'ridingLevel') {
+                    console.log(formArray[i]['value']);
+                    ridingLevel.push(JSON.parse(formArray[i]['value']));
+                }
+                else {
+                    returnArray[formArray[i]['name']] = formArray[i]['value'];
+                }
+            }
+
+
+            console.table(ridingStyle);
+            returnArray['ridingStyleDTOSet'] = ridingStyle;
+            console.table(ridingLevel);
+            returnArray['ridingLevelDTOSet'] = ridingLevel;
+            console.log('hey' + returnArray['categoryDTO']);
+            returnArray['categoryDTO'] = JSON.parse(returnArray['categoryDTO']);
+            console.log('hey' + returnArray['brandDTO']);
+            returnArray['brandDTO'] = JSON.parse(returnArray['brandDTO']);
+            console.log('hey' + returnArray['targetGroupDTO']);
+            returnArray['targetGroupDTO'] = JSON.parse(returnArray['targetGroupDTO']);
+
+            console.table(returnArray);
+            return returnArray;
+        }
+
+        function formToJSON(form) {
+            return JSON.stringify(objectifyForm(form));
+        }
+    </script>
+
+    <div class="snowboardBootsBaseEnum">
+
+        <div class="snowboardBootsBaseEnumInside">
+            <table class="enumTable" id="enumProductTable" align="center">
+                <tr>
+                    <td colspan="15"><h1 class="tableTitle">SnowboardBootss</h1></td>
+                </tr>
+                <tr>
+                    <td sec:authorize="hasAuthority('ADMIN')">ID</td>
+                    <td>NAME</td>
+                    <td>DESCRIPTION</td>
+                    <td>PRICE</td>
+                    <td>STIFFNESS</td>
+                    <td>CATEGORY</td>
+                    <td>STYLES</td>
+                    <td>LEVEL</td>
+                    <td>BRAND</td>
+                    <td>TARGET GROUP</td>
+                    <td sec:authorize="hasAuthority('ADMIN')">DELETE</td>
+                    <td style="text-align: center" sec:authorize="hasAuthority('ADMIN')">EDIT</td>
+                </tr>
+                <tr th:each="snowboardBootsBase,iter: ${snowboardBootsBases}">
+                    <td th:text="${snowboardBootsBase.productId}" sec:authorize="hasAuthority('ADMIN')"></td>
+                    <td><a th:href="${#httpServletRequest.requestURI} + '/details?productId=' + ${snowboardBootsBase.productId}" th:text="${snowboardBootsBase.name}"></a></td>
+                    <td>
+                        <details>
+                            <summary th:text="'Details'"></summary>
+                            <p th:utext="${snowboardBootsBase.description}"></p>
+                        </details>
+                    </td>
+                    <td th:text="${snowboardBootsBase.price}"></td>
+                    <td th:text="${snowboardBootsBase.stiffness}"></td>
+                    <td th:text="${snowboardBootsBase.categoryDTO != null ? snowboardBootsBase.categoryDTO.category : 'NOT FOUND'}"></td>
+                    <td>
+                        <div th:if="snowboardBootsBase.ridingStyleDTOSet != null">
+                            <li th:each="ridingStyle : ${snowboardBootsBase.ridingStyleDTOSet}" th:text="${ridingStyle.style}"></li>
+                        </div>
+                    </td>
+                    <td>
+                        <div th:if="snowboardBootsBase.ridingLevelDTOSet != null">
+                            <li th:each="ridingLevel : ${snowboardBootsBase.ridingLevelDTOSet}" th:text="${ridingLevel.level}"></li>
+                        </div>
+                    </td>
+                    <td th:text="${snowboardBootsBase.brandDTO != null ? snowboardBootsBase.brandDTO.name : 'NOT FOUND'}"></td>
+                    <td th:text="${snowboardBootsBase.targetGroupDTO != null ? snowboardBootsBase.targetGroupDTO.groupName : 'NOT FOUND'}"></td>
+                    <td sec:authorize="hasAuthority('ADMIN')">
+                        <script>
+                            function deleteSnowboardBootsBase (idSnowboardBootsBase){
+                                if(confirm("Are you sure you wanna delete this SnowboardBootsBase?")) {
+                                    $.ajax({
+                                        url:'snowboardBoots/' + idSnowboardBootsBase,
+                                        type:'DELETE',
+                                        success:function(){
+                                            alert("SnowboardBootsBase deleted successfully");
+                                        }
+                                    });
+                                    location.reload();
+                                    $("#enumSnowboardBootsBaseTable").load(" #enumSnowboardBootsBaseTable>*");
+                                } else {
+                                    alert("ok u cool");
+                                }
+                            }
+                        </script>
+
+                        <button type="button" th:onclick="'deleteSnowboardBootsBase(' + ${snowboardBootsBase.productId} + ')'">DELETE</button>
+
+                    </td>
+                    <td sec:authorize="hasAuthority('ADMIN')">
+                        <script>
+                            function editSnowboardBootsBase (index){
+
+                                var form = $('#editSnowboardBootsBase' + index);
+                                var data = formToJSON(form);
+
+                                $.ajax({
+                                    url:'snowboardBoots/',
+                                    type:'put',
+                                    contentType: "application/json; charset=UTF-8",
+                                    data:data,
+                                    dataType:"json",
+                                    success:function(){
+                                        alert("SnowboardBootsBase edited successfully");
+                                    },
+                                    error:function(XMLHttpRequest, textStatus, errorThrown){
+                                        alert(textStatus + errorThrown.toString());
+                                    }
+                                });
+                                //ensure page reloads
+                                $.ajax({
+                                    url: window.location.href,
+                                    headers: {
+                                        "Pragma": "no-cache",
+                                        "Expires": -1,
+                                        "Cache-Control": "no-cache"
+                                    }
+                                }).done(function () {
+                                    window.location.reload(true);
+                                });
+
+                            }
+                        </script>
+
+                        <details>
+                            <summary>Edit</summary>
+
+                            <form th:id="'editSnowboardBootsBase' + ${snowboardBootsBase.productId}" th:object="${snowboardBootsBaseModel}">
+                                <table>
+                                    <input type="hidden" th:id="'productId'" th:name="'productId'" th:value="${snowboardBootsBase.productId}">
+                                    <tr>
+                                        <td>SnowboardBootsBase Name: </td>
+                                        <td><input type="text" th:id="'name'" th:name="'name'" th:value="${snowboardBootsBase.name}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>SnowboardBootsBase Description:<br>(Accepts HTML) </td>
+                                        <td><textarea type="textarea" th:id="'description'" th:name="'description'" class="descriptionColumn"><p th:text="${snowboardBootsBase.description}"></p></textarea></td>
+                                    </tr>
+                                    <tr>
+                                        <td>SnowboardBootsBase Price: </td>
+                                        <td><input type="text" th:id="'price'" th:name="'price'" th:value="${snowboardBootsBase.price}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>SnowboardBootsBase Stiffness: </td>
+                                        <td>
+                                            <!--<input type="text" th:id="'stiffness'" th:name="'stiffness'" th:value="${snowboardBootsBase.stiffness}">-->
+                                            <select class="form-control" th:id="'stiffness'" th:name="'stiffness'">
+                                                <option th:each="stiffness : ${#numbers.sequence(1,10)}"
+                                                        th:value="${stiffness}"
+                                                        th:text="${stiffness}"
+                                                        th:selected="${snowboardBootsBase.stiffness == stiffness}"
+                                                >Wireframe</option>
+
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Category: </td>
+                                        <td>
+                                            <p th:text="${snowboardBootsBase.categoryDTO?.category}"></p>
+                                            <input type="hidden" th:id="'categoryDTO'" th:name="'categoryDTO'" th:value="${categoryModelSnowboardBoots}">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>SnowboardBootsBase Style: </td>
+                                        <td>
+                                            <!--<block class="form-control" th:each="ridingStyle : ${ridingStyles}" id="dropOperator">-->
+                                            <!--<th:block th:each="ridingStyleDTO : ${snowboardBootsBase.ridingStyleDTOSet}">-->
+                                            <!--<input type="checkbox" th:id="'ridingStyle'" th:name="'ridingStyle'" th:value="${ridingStyle}" th:if="${ridingStyleDTO.ridingStyleId == ridingStyle.ridingStyleId}" th:checked="${ridingStyleDTO.ridingStyleId == ridingStyle.ridingStyleId}"/>-->
+                                            <!--<label th:text="${ridingStyle.style}" th:if="${ridingStyleDTO.ridingStyleId == ridingStyle.ridingStyleId}"/>-->
+                                            <!--</th:block>-->
+                                            <!--</block>-->
+                                            <block class="form-control" th:each="ridingStyle : ${ridingStyles}" id="dropOperator">
+                                                <input type="checkbox" th:id="'ridingStyle'" th:name="'ridingStyle'" th:value="${ridingStyle}" th:checked="${#sets.contains(snowboardBootsBase.ridingStyleDTOSet, ridingStyle)}"/>
+                                                <label th:text="${ridingStyle.style}"/>
+                                            </block>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>SnowboardBootsBase Level: </td>
+                                        <td>
+                                            <block class="form-control" th:each="ridingLevel : ${ridingLevels}" id="dropOperator">
+                                                <input type="checkbox" th:id="'ridingLevel'" th:name="'ridingLevel'" th:value="${ridingLevel}" th:checked="${#sets.contains(snowboardBootsBase.ridingLevelDTOSet, ridingLevel)}"/>
+                                                <label th:text="${ridingLevel.level}"/>
+                                            </block>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Brand: </td>
+                                        <td>
+                                            <select class="form-control" th:id="brandDTO" th:name="brandDTO">
+                                                <option th:each="brand : ${brands}"
+                                                        th:value="${brand}"
+                                                        th:text="${brand.name}"
+                                                        th:selected="${brand.brandId == snowboardBootsBase.brandDTO?.brandId}"
+                                                >Wireframe</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Target Group: </td>
+                                        <td>
+                                            <select class="form-control" th:id="targetGroupDTO" th:name="targetGroupDTO">
+                                                <option th:each="targetGroup : ${targetGroups}"
+                                                        th:value="${targetGroup}"
+                                                        th:text="${targetGroup.groupName}"
+                                                        th:selected="${targetGroup.targetGroupId == snowboardBootsBase.targetGroupDTO?.targetGroupId}"
+                                                >Wireframe</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                            <button type="button" th:onclick="'editSnowboardBootsBase(' + ${snowboardBootsBase.productId} + ')'">Edit</button>
+
+                        </details>
+                    </td>
+                </tr>
+            </table>
+            <center><a th:href="${#httpServletRequest.requestURI} + '/details'" sec:authorize="hasAuthority('ADMIN')">Inventory</a></center>
+        </div>
+    </div>
+    <div class="snowboardBootsBaseEnum" sec:authorize="hasAuthority('ADMIN')">
+
+        <div class="snowboardBootsBaseEnumInside">
+            <script>
+
+                function SaveForm(url) {
+
+                    var form = $('#saveSnowboardBootsBaseForm');
+
+                    var data = formToJSON(form);
+
+                    $.ajax({
+                        url:'snowboardBoots/',
+                        type:'post',
+                        contentType: "application/json; charset=utf-8",
+                        data:data,
+                        dataType:'json',
+                        success:function(){
+                            alert("Added new SnowboardBootsBase!");
+                        },
+                        error:function(XMLHttpRequest, textStatus, errorThrown){
+                            alert(errorThrown.toString());
+                            alert("PERMISSION DENIED");
+                        }
+                    });
+                    location.reload();
+                    $("#enumSnowboardBootsBaseTable").load(" #enumSnowboardBootsBaseTable>*");
+                }
+            </script>
+
+            <form th:id="saveSnowboardBootsBaseForm" th:object="${snowboardBootsBaseModel}"  th:action="'/snowboardBootsBase'">
+                <table align="center">
+                    <tr>
+                        <td colspan="2"><h1 class="tableTitle">New SnowboardBootsBase</h1></td>
+                    </tr>
+                    <tr>
+                        <td>SnowboardBootsBase Name: </td>
+                        <td><input type="text" th:field="*{name}"></td>
+                    </tr>
+                    <tr>
+                        <td>SnowboardBootsBase Description:<br>(Accepts HTML) </td>
+                        <td><textarea type="textarea" th:field="*{description}" class="descriptionColumn"/></td>
+                    </tr>
+                    <tr>
+                        <td>SnowboardBootsBase Price: </td>
+                        <td><input type="text" th:field="*{price}"></td>
+                    </tr>
+                    <tr>
+                        <td>SnowboardBootsBase Stiffness: </td>
+                        <td>
+                            <!--<input type="text" th:id="'stiffness'" th:name="'stiffness'" th:value="${snowboardBootsBase.stiffness}">-->
+                            <select class="form-control" th:id="'stiffness'" th:name="'stiffness'">
+                                <option th:each="stiffness : ${#numbers.sequence(1,10)}"
+                                        th:value="${stiffness}"
+                                        th:text="${stiffness}"
+                                >Wireframe</option>
+
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Category: </td>
+                        <td>
+                            <p>&nbsp &nbsp snowboardBoots</p>
+                            <!--<select class="form-control" th:field="*{categoryDTO}">-->
+                            <!--<option th:each="category : ${categorys}"-->
+                            <!--th:value="${category}"-->
+                            <!--th:text="${category.category}">Wireframe</option>-->
+                            <!--</select>-->
+                            <input type="hidden" th:id="'categoryDTO'" th:name="'categoryDTO'" th:value="${categoryModelSnowboardBoots}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>SnowboardBootsBase Style: </td>
+                        <td>
+                            <block class="form-control" th:each="ridingStyle : ${ridingStyles}" id="dropOperator">
+                                <input type="checkbox" th:id="'ridingStyle'" th:name="'ridingStyle'" th:value="${ridingStyle}"/>
+                                <label th:text="${ridingStyle.style}"/>
+                            </block>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>SnowboardBootsBase Level: </td>
+                        <td>
+                            <block class="form-control" th:each="ridingLevel : ${ridingLevels}" id="dropOperator">
+                                <input type="checkbox" th:id="'ridingLevel'" th:name="'ridingLevel'" th:value="${ridingLevel}"/>
+                                <label th:text="${ridingLevel.level}"/>
+                            </block>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Brand: </td>
+                        <td>
+                            <select class="form-control" th:field="*{brandDTO}">
+                                <option th:each="brand : ${brands}"
+                                        th:value="${brand}"
+                                        th:text="${brand.name}">Wireframe</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>TargetGroup: </td>
+                        <td>
+                            <select class="form-control" th:field="*{targetGroupDTO}">
+                                <option th:each="targetGroup : ${targetGroups}"
+                                        th:value="${targetGroup}"
+                                        th:text="${targetGroup.groupName}">Wireframe</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <button type="button"  th:onclick="'SaveForm(' + '\'' + ${#httpServletRequest.requestURI} + '\'' + ')'">Submit</button>
+                        </td>
+                    </tr>
+                </table>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

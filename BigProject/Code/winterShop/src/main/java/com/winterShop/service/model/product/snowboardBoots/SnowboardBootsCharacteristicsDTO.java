@@ -14,4 +14,28 @@ public class SnowboardBootsCharacteristicsDTO {
 
     public SnowboardBootsCharacteristicsDTO() {
     }
+
+    public Long getSnowboardBootsCharacteristicsId() {
+        return snowboardBootsCharacteristicsId;
+    }
+
+    public void setSnowboardBootsCharacteristicsId(Long snowboardBootsCharacteristicsId) {
+        this.snowboardBootsCharacteristicsId = snowboardBootsCharacteristicsId;
+    }
+
+    public ShoeSizeDTO getShoeSizeDTO() {
+        return shoeSizeDTO;
+    }
+
+    public void setShoeSizeDTO(ShoeSizeDTO shoeSizeDTO) {
+        this.shoeSizeDTO = shoeSizeDTO;
+    }
+
+    public ColorDTO getColorDTO() {
+        return colorDTO;
+    }
+
+    public void setColorDTO(ColorDTO colorDTO) {
+        this.colorDTO = colorDTO;
+    }
 }

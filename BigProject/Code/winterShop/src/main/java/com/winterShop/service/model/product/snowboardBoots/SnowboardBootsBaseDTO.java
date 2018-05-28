@@ -19,4 +19,28 @@ public class SnowboardBootsBaseDTO extends ProductDTO {
 
     public SnowboardBootsBaseDTO() {
     }
+
+    public Long getStiffness() {
+        return stiffness;
+    }
+
+    public void setStiffness(Long stiffness) {
+        this.stiffness = stiffness;
+    }
+
+    public Set<RidingStyleDTO> getRidingStyleDTOSet() {
+        return ridingStyleDTOSet;
+    }
+
+    public void setRidingStyleDTOSet(Set<RidingStyleDTO> ridingStyleDTOSet) {
+        this.ridingStyleDTOSet = ridingStyleDTOSet;
+    }
+
+    public Set<RidingLevelDTO> getRidingLevelDTOSet() {
+        return ridingLevelDTOSet;
+    }
+
+    public void setRidingLevelDTOSet(Set<RidingLevelDTO> ridingLevelDTOSet) {
+        this.ridingLevelDTOSet = ridingLevelDTOSet;
+    }
 }

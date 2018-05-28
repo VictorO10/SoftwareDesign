@@ -107,8 +107,8 @@ public class ProductWCharsDTO {
         try {
             return objectMapper.writeValueAsString(this);
         } catch (JsonProcessingException e) {
-//            return e.toString();
-            return "productWCharsDTO to jackson error\n";
+            return e.toString();
+           // return "productWCharsDTO to jackson error\n";
         }
     }
 }

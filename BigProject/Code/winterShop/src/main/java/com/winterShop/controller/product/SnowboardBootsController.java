@@ -2,7 +2,7 @@ package com.winterShop.controller.product;
 
 import com.winterShop.service.contracts.product.*;
 import com.winterShop.service.model.product.*;
-import com.winterShop.service.model.product.snowboard.SnowboardBaseDTO;
+import com.winterShop.service.model.product.snowboardBoots.SnowboardBootsBaseDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("snowboard")
-public class SnowboardController {
+@RequestMapping("snowboardBoots")
+public class SnowboardBootsController {
 
     @Autowired
-    SnowboardBaseService snowboardService;
+    SnowboardBootsBaseService snowboardBootsService;
 
     @Autowired
     CategoryService categoryService;
@@ -36,10 +36,10 @@ public class SnowboardController {
     RidingLevelService ridingLevelService;
 
     @GetMapping
-    public String getAllSnowboards(Model model){
+    public String getAllSnowboardBootss(Model model){
 
-        List<SnowboardBaseDTO> snowboardBases = snowboardService.getAll();
-        model.addAttribute("snowboardBases", snowboardBases);
+        List<SnowboardBootsBaseDTO> snowboardBootsBases = snowboardBootsService.getAll();
+        model.addAttribute("snowboardBootsBases", snowboardBootsBases);
 
         List<CategoryDTO> categorys = categoryService.getAll();
         model.addAttribute("categorys", categorys);
@@ -56,37 +56,37 @@ public class SnowboardController {
         List<TargetGroupDTO> targetGroups = targetGroupService.getAll();
         model.addAttribute("targetGroups", targetGroups);
 
-        return "product/snowboard";
+        return "product/snowboardBoots";
     }
 
     @PostMapping
-    public ResponseEntity<SnowboardBaseDTO> createNewSnowboard(@RequestBody SnowboardBaseDTO snowboard, Model model) {
+    public ResponseEntity<SnowboardBootsBaseDTO> createNewSnowboardBoots(@RequestBody SnowboardBootsBaseDTO snowboardBoots, Model model) {
 
-        snowboard = snowboardService.save(snowboard);
+        snowboardBoots = snowboardBootsService.save(snowboardBoots);
 
-        return new ResponseEntity<>(snowboard, HttpStatus.CREATED);
+        return new ResponseEntity<>(snowboardBoots, HttpStatus.CREATED);
     }
 
     @PutMapping
-    public ResponseEntity<SnowboardBaseDTO> editSnowboard(@RequestBody SnowboardBaseDTO snowboard, Model model) {
+    public ResponseEntity<SnowboardBootsBaseDTO> editSnowboardBoots(@RequestBody SnowboardBootsBaseDTO snowboardBoots, Model model) {
 
-        snowboard = snowboardService.update(snowboard);
+        snowboardBoots = snowboardBootsService.update(snowboardBoots);
 
-        return new ResponseEntity<>(snowboard, HttpStatus.OK);
+        return new ResponseEntity<>(snowboardBoots, HttpStatus.OK);
     }
 
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> deleteSnowboard(@PathVariable("id") Long snowboardId) {
+    public ResponseEntity<Void> deleteSnowboardBoots(@PathVariable("id") Long snowboardBootsId) {
 
-        snowboardService.delete(snowboardId);
+        snowboardBootsService.delete(snowboardBootsId);
 
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
-    @ModelAttribute(value = "snowboardBaseModel")
-    public SnowboardBaseDTO newSnowboardBaseDTO(){
-        return new SnowboardBaseDTO();
+    @ModelAttribute(value = "snowboardBootsBaseModel")
+    public SnowboardBootsBaseDTO newSnowboardBootsBaseDTO(){
+        return new SnowboardBootsBaseDTO();
     }
 
     @ModelAttribute(value = "categoryModel")
@@ -94,8 +94,8 @@ public class SnowboardController {
         return new CategoryDTO();
     }
 
-    @ModelAttribute(value = "categoryModelSnowboard")
-    public CategoryDTO newCategoryDtoSnowboard(){
+    @ModelAttribute(value = "categoryModelSnowboardBoots")
+    public CategoryDTO newCategoryDtoSnowboardBoots(){
 
         CategoryDTO categoryDTO = new CategoryDTO();
 

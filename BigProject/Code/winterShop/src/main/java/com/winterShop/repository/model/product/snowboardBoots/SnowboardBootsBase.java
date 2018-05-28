@@ -35,4 +35,28 @@ public class SnowboardBootsBase extends Product {
 
     public SnowboardBootsBase() {
     }
+
+    public Long getStiffness() {
+        return stiffness;
+    }
+
+    public void setStiffness(Long stiffness) {
+        this.stiffness = stiffness;
+    }
+
+    public Set<RidingStyle> getRidingStyleSet() {
+        return ridingStyleSet;
+    }
+
+    public void setRidingStyleSet(Set<RidingStyle> ridingStyleSet) {
+        this.ridingStyleSet = ridingStyleSet;
+    }
+
+    public Set<RidingLevel> getRidingLevelSet() {
+        return ridingLevelSet;
+    }
+
+    public void setRidingLevelSet(Set<RidingLevel> ridingLevelSet) {
+        this.ridingLevelSet = ridingLevelSet;
+    }
 }

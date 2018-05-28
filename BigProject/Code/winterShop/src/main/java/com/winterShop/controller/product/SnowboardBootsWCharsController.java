@@ -1,13 +1,18 @@
 package com.winterShop.controller.product;
 
+import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import com.winterShop.service.contracts.order.ShoppingCartLineService;
 import com.winterShop.service.contracts.order.ShoppingCartService;
+import com.winterShop.service.contracts.product.ColorService;
 import com.winterShop.service.contracts.product.ProductWCharsService;
-import com.winterShop.service.contracts.product.SnowboardBaseService;
+import com.winterShop.service.contracts.product.ShoeSizeService;
+import com.winterShop.service.contracts.product.SnowboardBootsBaseService;
 import com.winterShop.service.model.order.ShoppingCartLineDTO;
+import com.winterShop.service.model.product.ColorDTO;
 import com.winterShop.service.model.product.ProductWCharsDTO;
-import com.winterShop.service.model.product.snowboard.SnowboardBaseDTO;
-import com.winterShop.service.model.product.snowboard.SnowboardCharacteristicsDTO;
+import com.winterShop.service.model.product.ShoeSizeDTO;
+import com.winterShop.service.model.product.snowboardBoots.SnowboardBootsBaseDTO;
+import com.winterShop.service.model.product.snowboardBoots.SnowboardBootsCharacteristicsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +25,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("snowboard/details")
-public class SnowboardWCharsController {
+@RequestMapping("snowboardBoots/details")
+public class SnowboardBootsWCharsController {
 
     @Autowired
     ProductWCharsService productWCharsService;
 
     @Autowired
-    SnowboardBaseService snowboardBaseService;
+    SnowboardBootsBaseService snowboardBootsBaseService;
+
+    @Autowired
+    ColorService colorService;
+
+    @Autowired
+    ShoeSizeService shoeSizeService;
 
     @Autowired
     ShoppingCartService shoppingCartService;
@@ -40,30 +51,38 @@ public class SnowboardWCharsController {
 
         if(productId == null) {
 
-            List<ProductWCharsDTO> productWCharss = productWCharsService.getAll("snowboard");
+            List<ProductWCharsDTO> productWCharss = productWCharsService.getAll("snowboardBoots");
             model.addAttribute("productWCharss", productWCharss);
 
-            List<SnowboardBaseDTO> snowboardBases = snowboardBaseService.getAll();
-            model.addAttribute("snowboardBases", snowboardBases);
+            System.out.println(productWCharss.size());
 
-            return "product/snowboardWChars";
+            List<ColorDTO> colors = colorService.getAll();
+            model.addAttribute("colors", colors);
+
+            List<ShoeSizeDTO> shoeSizes = shoeSizeService.getAll();
+            model.addAttribute("shoeSizes", shoeSizes);
+
+            List<SnowboardBootsBaseDTO> snowboardBootsBases = snowboardBootsBaseService.getAll();
+            model.addAttribute("snowboardBootsBases", snowboardBootsBases);
+
+            return "product/snowboardBootsWChars";
         } else {
 
             List<ProductWCharsDTO> productWCharss = productWCharsService.findByProduct_productId(productId);
             model.addAttribute("productWCharss", productWCharss);
 
-            //get a snowboardBase which contains all the base characteristics
-            SnowboardBaseDTO snowboardBaseDTO = snowboardBaseService.getById(productId);
-            model.addAttribute("snowboardBase", snowboardBaseDTO);
+            //get a snowboardBootsBase which contains all the base characteristics
+            SnowboardBootsBaseDTO snowboardBootsBaseDTO = snowboardBootsBaseService.getById(productId);
+            model.addAttribute("snowboardBootsBase", snowboardBootsBaseDTO);
 
-            return "product/snowboardWCharsOneProduct"; //product w chars by product Id
+            return "product/snowboardBootsWCharsOneProduct"; //product w chars by product Id
         }
     }
 
     @PostMapping
     public ResponseEntity<ProductWCharsDTO> createNewProductWChars(@RequestBody ProductWCharsDTO productWChars, Model model) {
 
-//        System.out.println(productWChars.getSnowboardCharacteristicsDTO().getLength());
+//        System.out.println(productWChars.getSnowboardBootsCharacteristicsDTO().getLength());
 
         productWChars = productWCharsService.save(productWChars);
 
@@ -91,9 +110,9 @@ public class SnowboardWCharsController {
         return new ProductWCharsDTO();
     }
 
-    @ModelAttribute(value = "snowboardCharsModel")
-    public SnowboardCharacteristicsDTO newSnowboardCharsDTO() {
-        return new SnowboardCharacteristicsDTO();
+    @ModelAttribute(value = "snowboardBootsCharsModel")
+    public SnowboardBootsCharacteristicsDTO newSnowboardBootsCharsDTO() {
+        return new SnowboardBootsCharacteristicsDTO();
     }
 
 }

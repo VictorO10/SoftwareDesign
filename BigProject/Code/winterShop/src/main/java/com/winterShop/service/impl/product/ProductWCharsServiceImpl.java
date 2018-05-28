@@ -40,6 +40,22 @@ public class ProductWCharsServiceImpl implements ProductWCharsService {
     }
 
     @Override
+    public List<ProductWCharsDTO> getAll(String category) {
+        List<ProductWChars> productWCharsList = productWCharsDAO.findAll();
+
+        List<ProductWCharsDTO> productWCharsDTOList = new ArrayList<>();
+
+        for(ProductWChars p: productWCharsList) {
+            System.out.println(p.getProduct().getCategory().getCategory());
+            if(p.getProduct().getCategory().getCategory().equals(category))
+                productWCharsDTOList.add(modelMapper.map(p, ProductWCharsDTO.class));
+        }
+
+        return productWCharsDTOList;
+    }
+
+
+    @Override
     public ProductWCharsDTO getById(Long aLong) {
 
         ProductWChars productWChars = productWCharsDAO.findById(aLong).get();
@@ -54,9 +70,6 @@ public class ProductWCharsServiceImpl implements ProductWCharsService {
 
         modelMapper.map(entity, productWChars);
 
-        /*for some reason when modelMapper maps, even though in the source one field is null,
-        in the destination that field will be created using the "new" operator. Here we set it back to null
-        */
         if(entity.getProductDTO().getCategoryDTO().getCategory().equals("snowboard")) {
             productWChars.setSnowboardBootsCharacteristics(null);
         }
@@ -80,7 +93,7 @@ public class ProductWCharsServiceImpl implements ProductWCharsService {
 
         //we only want to update the stock and the image, the rest will stay the same
         ProductWCharsDTO productWCharsDTO = getById(id);
- //       System.out.println(productWCharsDTO);
+        System.out.println(productWCharsDTO);
 
         productWCharsDTO.setImage(entity.getImage());
         productWCharsDTO.setStock(entity.getStock());

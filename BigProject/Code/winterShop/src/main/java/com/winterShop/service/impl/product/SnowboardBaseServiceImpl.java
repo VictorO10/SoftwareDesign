@@ -64,7 +64,7 @@ public class SnowboardBaseServiceImpl implements SnowboardBaseService {
     public SnowboardBaseDTO save(SnowboardBaseDTO entity) {
 
         //ensure that the category is snowoboard
-        entity.getCategoryDTO().setCategoryId(Long.parseLong("1"));
+        entity.getCategoryDTO().setCategoryId(Long.parseLong("3"));
 
         SnowboardBase snowboardBase = new SnowboardBase();
 

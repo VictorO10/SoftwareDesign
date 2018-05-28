@@ -29,4 +29,12 @@ public class Color {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Long getColorId() {
+        return colorId;
+    }
+
+    public void setColorId(Long colorId) {
+        this.colorId = colorId;
+    }
 }

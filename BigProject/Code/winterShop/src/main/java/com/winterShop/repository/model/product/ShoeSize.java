@@ -20,4 +20,36 @@ public class ShoeSize {
 
     public ShoeSize() {
     }
+
+    public int getShoeSizeId() {
+        return ShoeSizeId;
+    }
+
+    public void setShoeSizeId(int shoeSizeId) {
+        ShoeSizeId = shoeSizeId;
+    }
+
+    public Long getCm() {
+        return cm;
+    }
+
+    public void setCm(Long cm) {
+        this.cm = cm;
+    }
+
+    public Long getEu() {
+        return eu;
+    }
+
+    public void setEu(Long eu) {
+        this.eu = eu;
+    }
+
+    public Set<SnowboardBootsCharacteristics> getSnowboardBootsCharacteristicsSet() {
+        return snowboardBootsCharacteristicsSet;
+    }
+
+    public void setSnowboardBootsCharacteristicsSet(Set<SnowboardBootsCharacteristics> snowboardBootsCharacteristicsSet) {
+        this.snowboardBootsCharacteristicsSet = snowboardBootsCharacteristicsSet;
+    }
 }
